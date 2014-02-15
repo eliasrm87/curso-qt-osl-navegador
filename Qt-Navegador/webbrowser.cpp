@@ -3,6 +3,7 @@
 WebBrowser::WebBrowser(QWidget *parent) :
     QWidget(parent)
 {
+
     web_ = new QWebView;
     address_ = new QLineEdit;
     refresh_ = new QToolButton;
@@ -20,9 +21,9 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
-    address_->setText(homepage_);
-    web_->load(homepage_);
+//    homepage_="http://duckduckgo.com";
+//    address_->setText(homepage_);
+//    web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
 }
@@ -76,3 +77,25 @@ void WebBrowser::setAddress(QString url){
     onLoad();
 }
 
+
+void WebBrowser::setHomeAddress(QString url){
+    this->homepage_ = url;
+    this->saveSettings(url);
+}
+
+void WebBrowser::loadSettings(){
+
+        homepage_ = settings_.value("homepage").toString();
+
+}
+
+void WebBrowser::saveSettings(QString data){
+
+    settings_.setValue("homepage", data);
+
+}
+
+void WebBrowser::GoHome(){
+    address_->setText(homepage_);
+    web_->load(homepage_);
+}

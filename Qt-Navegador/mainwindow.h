@@ -34,10 +34,15 @@ private:
     QAction    *actNuevoMarcador_;
     QAction    *actMarcador_;
 
+    // Menu -> Herramientas
+    QMenu      *mnuHerramientas_;
+    QAction    *actCambiarHome_;
+
 public slots:
 
     void NuevoMarcador();
     void PulsarMarcador();
+    void CambiarHome();
 
 
 };
