@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include "webbrowser.h"
+#include "changehp.h"
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -12,6 +17,14 @@ public:
     ~MainWindow();
 private:
     WebBrowser *browser_;
+    QMenu* mnuMarcador_;
+    QMenu* mnuPreferencias_;
+    QAction* actMarGuardar;
+    QAction* actPreferencias;
+
+public slots:
+    void alMarcador();
+    void changeHomePage();
 };
 
 #endif // MAINWINDOW_H
