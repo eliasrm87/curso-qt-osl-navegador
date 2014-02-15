@@ -4,6 +4,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     browser_ = new WebBrowser;
+    browser_->loadSettings();
+    browser_->GoHome();
     setCentralWidget(browser_);
 
     // inicializamos los menus
@@ -11,16 +13,16 @@ MainWindow::MainWindow(QWidget *parent)
     setMenuBar(mainMenu_);
 
     mnuArchivo_ = new QMenu(tr("&Archivo"), this);
-    mainMenu_ -> addMenu(mnuArchivo_);
+    //mainMenu_ -> addMenu(mnuArchivo_);
 
     mnuEditar_ = new QMenu(tr("&Editar"), this);
-    mainMenu_ -> addMenu(mnuEditar_);
+    //mainMenu_ -> addMenu(mnuEditar_);
 
     mnuVer_ = new QMenu(tr("&Ver"), this);
-    mainMenu_ -> addMenu(mnuVer_);
+    //mainMenu_ -> addMenu(mnuVer_);
 
     mnuHistorial_ = new QMenu(tr("&Historial"), this);
-    mainMenu_ -> addMenu(mnuHistorial_);
+    //mainMenu_ -> addMenu(mnuHistorial_);
 
     mnuMarcadores_ = new QMenu(tr("&Marcadores"), this);
     mainMenu_ -> addMenu(mnuMarcadores_);
@@ -31,9 +33,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     mnuHerramientas_ = new QMenu(tr("&Herramientas"), this);
     mainMenu_ -> addMenu(mnuHerramientas_);
+    actSetHomepage_ = new QAction(tr("Establecer como pagina principal"), this);
+    mnuHerramientas_->addAction(actSetHomepage_);
+    connect(actSetHomepage_, SIGNAL(triggered()), browser_, SLOT(setHomepage()));
+
 
     mnuAyuda_ = new QMenu(tr("&Ayuda"), this);
-    mainMenu_ -> addMenu(mnuAyuda_);
+    //mainMenu_ -> addMenu(mnuAyuda_);
 
     readBookmarkFile();
     for (int i = 0; i < bookmarkList.size(); ++i) {
@@ -86,3 +92,6 @@ void MainWindow::PulsarMarcador() {
     browser_ -> setAddress(act->text());
 }
 
+//void WebBrowser::setHome() {
+//    browser_ -> setHomepage();
+//}

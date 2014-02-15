@@ -7,6 +7,8 @@
 #include <QToolButton>
 #include <QWidget>
 #include <QAction>
+#include <QSettings>
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -22,6 +24,9 @@ private:
     QToolButton *forward_;
     QToolButton *home_;
     QGridLayout *layout_;
+    QSettings settings_;
+
+public:
     QString homepage_;
 
 private:
@@ -34,11 +39,16 @@ public slots:
     void onHome();
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
-    //void alViewPage(QAction* act);
+    void setHomepage();
 
 public:
     void setAddress(QString url);
     QString getAddress();
+    void loadSettings();
+    void saveSettings(QString data);
+    void GoHome();
+
+
 };
 
 #endif // WEBBROWSER_H

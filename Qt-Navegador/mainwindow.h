@@ -32,6 +32,7 @@ private:
     // Lista de Marcadores
     QStringList bookmarkList;
     QAction* actAddBookmark_;
+    QAction* actSetHomepage_;
 
 private:
     void readBookmarkFile();
