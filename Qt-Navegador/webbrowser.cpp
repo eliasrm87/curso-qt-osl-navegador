@@ -57,6 +57,7 @@ void WebBrowser::onHome()
 
 void WebBrowser::onUrlChange(QUrl url)
 {
+    // Añadir aqui fichero historial
     address_->setText(url.toString());
 }
 
@@ -85,7 +86,7 @@ void WebBrowser::setHomeAddress(QString url){
 
 void WebBrowser::loadSettings(){
 
-        homepage_ = settings_.value("homepage").toString();
+    homepage_ = settings_.value("homepage").toString();
 
 }
 
