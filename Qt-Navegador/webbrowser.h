@@ -6,6 +6,12 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QFile>
+#include <QIODevice>
+
+#include "qbookmarkreader.h"
+#include "bookmarkvector.h"
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -21,6 +27,7 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+
 private:
     void setupConnections();
 signals:

@@ -25,6 +25,11 @@ WebBrowser::WebBrowser(QWidget *parent) :
     web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
+
+    QList < BookmarkVector > bookmarkStore();
+    QBookmarkReader bookmark( bookmarkStore );
+
+
 }
 
 void WebBrowser::setupConnections()
@@ -44,6 +49,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
 }
 
 void WebBrowser::onHome()

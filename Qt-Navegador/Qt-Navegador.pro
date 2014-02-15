@@ -14,11 +14,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    webbrowser.cpp
+    webbrowser.cpp \
+    qbookmarkreader.cpp \
+    bookmarkvector.cpp
 
 HEADERS  += mainwindow.h \
-    webbrowser.h
+    webbrowser.h \
+    qbookmarkreader.h \
+    bookmarkvector.h
 
 RESOURCES += \
     resources.qrc
+
+OTHER_FILES += \
+    ../../tmp/bookmark.json
 
