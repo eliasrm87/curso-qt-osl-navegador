@@ -1,6 +1,7 @@
 #ifndef WEBBROWSER_H
 #define WEBBROWSER_H
 
+
 #include <QGridLayout>
 #include <QWebView>
 #include <QLineEdit>
@@ -14,8 +15,8 @@ public:
 
 private:
     QWebView *web_;
-    QLineEdit *address_;
-    QToolButton *refresh_;
+    QLineEdit *address_;//Añadimos la barra direccion
+    QToolButton *refresh_; //Añadimos los botones
     QToolButton *back_;
     QToolButton *forward_;
     QToolButton *home_;
@@ -29,8 +30,11 @@ public slots:
     void onLoad();
     void onHome();
     void onUrlChange(QUrl url);
-
     void onLoadFinished(bool ok);
+
+public:
+    QString getAddress();
+    void setAddress(QString linea);
 };
 
 #endif // WEBBROWSER_H

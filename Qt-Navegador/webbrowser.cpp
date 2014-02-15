@@ -44,6 +44,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text()); //Si añadimos la pagina de forma correcta
 }
 
 void WebBrowser::onHome()
@@ -63,4 +65,10 @@ void WebBrowser::onLoadFinished(bool ok)
 
 
 }
-
+QString WebBrowser::getAddress(){
+    return address_->text();
+}
+void WebBrowser::setAddress(QString linea){
+    address_->setText(linea);
+    onLoad();
+}
