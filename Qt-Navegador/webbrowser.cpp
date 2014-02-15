@@ -62,6 +62,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
 
 }
 
@@ -91,8 +93,9 @@ void WebBrowser::onAnadirMarcador()
 
 void WebBrowser::goTo(QString URL)
 {
-    //
+    //Se cargar en el cuadro de dirección la URL indicada.
     address_->setText(URL);
+    //Se navega a esa URL.
     onLoad();
 }
 

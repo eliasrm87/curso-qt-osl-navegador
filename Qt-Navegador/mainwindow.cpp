@@ -25,10 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
     //Se añade la opción Marcadores a la barra de menú.
     mainMenu_->addMenu(mnuMarcadores_);
 
+
+    //Se leen todos los favoritos del archivo de marcadores y se añande al menú
+    // de marcadores.
     QFile FileMarcadores_;
     FileMarcadores_.setFileName("Marcadores.txt");
-
-
 
     if (FileMarcadores_.open(QFile::ReadOnly))
     {
@@ -66,11 +67,13 @@ void MainWindow::onCapturarSignalAnadirMarcador(QString URL)
 {
     QAction *actMarcador_ = mnuMarcadores_->addAction(URL);
 
+    //Al pulsar sobre el marcador que se acaba de añadir se invocará la función
+    // "onMarcador()"
     connect(actMarcador_, SIGNAL(triggered), this, SLOT(onMarcador()));
 
 
+    //Se añade el marcador al fichero.
     QFile FileMarcadores_;
-
     FileMarcadores_.setFileName("Marcadores.txt");
 
     if (FileMarcadores_.open(QFile::Append))
@@ -82,8 +85,14 @@ void MainWindow::onCapturarSignalAnadirMarcador(QString URL)
     }
 }
 
+
+//Esta función se invoca cuando se pincha en alguno de los marcadores.
+//Se carga la url del marcador en el navegador.
 void MainWindow::onMarcador()
 {
+    //Como el objeto que invoca esta función es de tipo QAction hacemos un type cast
+    // para recuperar su propiedad text que contiene la URL a la que se quiere navegar.
+
     browser_->goTo(((QAction*)QObject::sender())->text());
 }
 
