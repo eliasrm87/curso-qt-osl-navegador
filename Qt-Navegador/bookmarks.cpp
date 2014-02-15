@@ -28,7 +28,7 @@ bookmarks::bookmarks(QWidget *parent) :
     setLayout(layout_);
     onLoad();
 
-    connect(list_,SIGNAL(clicked(QModelIndex)),this,SLOT(clicked(QModelIndex)));
+
     connect(open_,SIGNAL(pressed()),this,SLOT(onOpen()));
     connect(save_,SIGNAL(pressed()),this,SLOT(onSave()));
 }
@@ -46,9 +46,14 @@ void bookmarks::clicked(const QModelIndex &index)
 void bookmarks::onSave()
 {
     if(settings_ != NULL){
+        settings_->beginWriteArray("Bookmarks");
+        settings_->setArrayIndex(names_.size());
         settings_->setValue("name",nameSave_->text());
         settings_->setValue("url",urlSave_->text());
+        settings_->endArray();
     }
+    list_->clearMask();
+    onLoad();
 }
 
 void bookmarks::onOpen()
@@ -59,18 +64,22 @@ void bookmarks::onOpen()
 void bookmarks::onLoad()
 {
     settings_ = new QSettings("/home/nad/bookmarks.ini",QSettings::IniFormat);
+    settings_->beginReadArray("Bookmarks");
     const QStringList childKeys = settings_->allKeys();
     QStringList values;
     foreach (const QString &childKey, childKeys)
         values << settings_->value(childKey).toString();
 
-    for(int i=0; i<(values.size()/2); i++){
+    names_.clear();
+    urls_.clear();
+    for(int i=0; i<(values.size()-1); i+=2){
         names_.append(values[i]);
         urls_.append(values[i+1]);
     }
     QStringListModel* model = new QStringListModel(this);
     model->setStringList(names_);
     list_->setModel(model);
+    settings_->endArray();
 
-
+    connect(list_,SIGNAL(clicked(QModelIndex)),this,SLOT(clicked(QModelIndex)));
 }

@@ -26,7 +26,7 @@ private:
     //----
     QDialog* dialog_;
     QToolButton *bookmarks_;
-    bookmarks* books;
+    bookmarks* books_;
     //----
     QGridLayout *layout_;
     QString homepage_;

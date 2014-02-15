@@ -10,7 +10,6 @@ WebBrowser::WebBrowser(QWidget *parent) :
     forward_ = new QToolButton;
     home_ = new QToolButton;
     bookmarks_ = new QToolButton;
-    books = new bookmarks();
     layout_ = new QGridLayout;
 
     //Cargamos los iconos para los botones
@@ -48,8 +47,6 @@ void WebBrowser::setupConnections()
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
 
     connect(bookmarks_,SIGNAL(pressed()),this,SLOT(onBooks()));
-    connect(books,SIGNAL(url(QString)),this,SLOT(bookChange(QString)));
-
 }
 
 void WebBrowser::onLoad()
@@ -82,10 +79,13 @@ void WebBrowser::onBooks()
 {
     dialog_ = new QDialog();
     QLayout* layout = new QHBoxLayout;
-    books->setUrl(address_->text());
-    layout->addWidget(books);
+    books_ = new bookmarks();
+    books_->setUrl(address_->text());
+    layout->addWidget(books_);
     dialog_->setLayout(layout);
     dialog_->show();
+
+    connect(books_,SIGNAL(url(QString)),this,SLOT(bookChange(QString)));
 }
 
 void WebBrowser::bookChange(QString url)
@@ -93,6 +93,5 @@ void WebBrowser::bookChange(QString url)
     dialog_->close();
     address_->setText(url);
     web_->load(url);
-
 }
 
