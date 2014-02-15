@@ -6,14 +6,16 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QAction>
 class WebBrowser : public QWidget
 {
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
 
-private:
+public:
     QWebView *web_;
+private:
     QLineEdit *address_;
     QToolButton *refresh_;
     QToolButton *back_;
@@ -21,16 +23,22 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+
 private:
     void setupConnections();
+
 signals:
 
 public slots:
     void onLoad();
     void onHome();
     void onUrlChange(QUrl url);
-
     void onLoadFinished(bool ok);
+    //void alViewPage(QAction* act);
+
+public:
+    void setAddress(QString url);
+    QString getAddress();
 };
 
 #endif // WEBBROWSER_H
