@@ -14,6 +14,7 @@ class WebBrowser : public QWidget
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
+    void set_home_page(QString home){ homepage_=home;}
 
 private:
     QWebView *web_;
