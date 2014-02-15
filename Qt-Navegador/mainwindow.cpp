@@ -43,7 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
             //actMarcadorMarcadores_ = new QAction(InterfaceFileMarcadores_.device()->readLine(), this);
 
             //Se añade el marcador como una acción al Menú de marcadores.
-            mnuMarcadores_->addAction(InterfaceFileMarcadores_.readLine());
+            QAction *actMarcador_ = mnuMarcadores_->addAction(InterfaceFileMarcadores_.readLine());
+
+            //Al pulsar sobre el marcador que se acaba de añadir se invocará la función
+            // "onMarcador()"
+            connect(actMarcador_, SIGNAL(triggered), this, SLOT(onMarcador()));
         }
 
         FileMarcadores_.close();
@@ -62,7 +66,7 @@ MainWindow::~MainWindow()
 
 //Método que maneja la señal "signalAnadirMarcador(QString)" de browser_, tal
 // y como se indicó en el connect del constructor.
-//Recibe la url actual y se añade al menú de marcadores.
+//Recibe la url actual d e browser_ y se añade al menú de marcadores.
 void MainWindow::onCapturarSignalAnadirMarcador(QString URL)
 {
     QAction *actMarcador_ = mnuMarcadores_->addAction(URL);
