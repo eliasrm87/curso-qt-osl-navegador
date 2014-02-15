@@ -44,6 +44,9 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else{
+        web_->load(address_->text());
+    }
 }
 
 void WebBrowser::onHome()
@@ -62,5 +65,14 @@ void WebBrowser::onLoadFinished(bool ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
 
 
+}
+
+QString WebBrowser::getAddress(){
+    return address_->text();
+}
+
+void WebBrowser::setAddress(QString url){
+    address_->setText(url);
+    onLoad();
 }
 

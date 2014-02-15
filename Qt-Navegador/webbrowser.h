@@ -6,11 +6,14 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QLineEdit>
 class WebBrowser : public QWidget
 {
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
+    QString getAddress();
+    void setAddress(QString url);
 
 private:
     QWebView *web_;
