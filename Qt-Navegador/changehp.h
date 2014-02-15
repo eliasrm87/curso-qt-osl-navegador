@@ -5,6 +5,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QUrl>
 
 class ChangeHP : public QDialog
 {

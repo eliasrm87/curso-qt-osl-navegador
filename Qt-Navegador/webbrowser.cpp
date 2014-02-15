@@ -40,7 +40,6 @@ void WebBrowser::setupConnections()
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
     connect(marcador_, SIGNAL(pressed()),this, SLOT(onMarcador()));
-    connect(homepage_,SIGNAL(ObtenerUrl(QUrl)),this, SLOT(HomePage(QUrl)));
 }
 
 void WebBrowser::onMarcador()
@@ -60,7 +59,8 @@ void WebBrowser::onLoad()
 
 void WebBrowser::onHome()
 {
-    web_->load(homepage_);
+    address_->setText(homepage_);
+    onLoad();
 }
 
 void WebBrowser::onUrlChange(QUrl url)
@@ -74,9 +74,10 @@ void WebBrowser::onLoadFinished(bool ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
 }
 
-void WebBrowser::obtenerUrl(QUrl url)
+void WebBrowser::ObtenerUrl(QUrl url)
 {
-    homepage_= url;
+    homepage_= url.toString();
+
 }
 
 QString WebBrowser::address() //Retorna el texto de la url para marcadores

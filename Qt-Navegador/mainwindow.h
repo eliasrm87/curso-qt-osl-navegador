@@ -21,6 +21,7 @@ private:
     QMenu* mnuPreferencias_;
     QAction* actMarGuardar;
     QAction* actPreferencias;
+    ChangeHP* changehp_;
 
 public slots:
     void alMarcador();

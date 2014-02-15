@@ -26,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(actPreferencias, SIGNAL(triggered()), this, SLOT(changeHomePage()));
 
+    changehp_ = new ChangeHP;
+
+    connect(changehp_,SIGNAL(HomePage(QUrl)),browser_, SLOT(ObtenerUrl(QUrl)));
+
 }
 
 MainWindow::~MainWindow()
@@ -41,7 +45,6 @@ void MainWindow::alMarcador()
 
 void MainWindow::changeHomePage()
 {
-    ChangeHP* dialog = new ChangeHP;
-    dialog->show();
+    changehp_->show();
 }
 
