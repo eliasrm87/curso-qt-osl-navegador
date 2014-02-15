@@ -111,5 +111,5 @@ void MainWindow::CambiarHome(){
 
     QString url = browser_->getAddress();
     browser_->setHomeAddress(url);
-    browser_->saveSettings(url);
+    //browser_->saveSettings(url);
 }
