@@ -2,9 +2,9 @@
 #define WEBBROWSER_H
 
 #include <QGridLayout>
-#include <QWebView>
-#include <QLineEdit>
-#include <QToolButton>
+#include <QWebView>//Visualizacion de la web en sí misma
+#include <QLineEdit>//Para meter las URL's
+#include <QToolButton>//Facilita el hecho de poner iconos
 #include <QWidget>
 class WebBrowser : public QWidget
 {
@@ -19,6 +19,9 @@ private:
     QToolButton *back_;
     QToolButton *forward_;
     QToolButton *home_;
+    //----
+    QToolButton *bookmarks_;
+    //----
     QGridLayout *layout_;
     QString homepage_;
 private:

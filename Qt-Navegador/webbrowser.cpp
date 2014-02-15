@@ -9,17 +9,26 @@ WebBrowser::WebBrowser(QWidget *parent) :
     back_ = new QToolButton;
     forward_ = new QToolButton;
     home_ = new QToolButton;
+    bookmarks_ = new QToolButton;
     layout_ = new QGridLayout;
+
+    //Cargamos los iconos para los botones
     refresh_->setIcon(QIcon(QPixmap(":/icons/resources/refresh.png")));
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
+    bookmarks_->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
+
+    //Elemento,(posicion inicial), filas, columnas
     layout_->addWidget(back_,0,0,1,1);
     layout_->addWidget(forward_,0,1,1,1);
     layout_->addWidget(home_,0,2,1,1);
     layout_->addWidget(refresh_,0,3,1,1);
-    layout_->addWidget(address_,0,4,1,1);
-    layout_->addWidget(web_,1,0,1,5);
+    layout_->addWidget(bookmarks_,0,4,1,1);
+    layout_->addWidget(address_,0,5,1,1);
+    layout_->addWidget(web_,1,0,1,6);
+
+    //Guardar la pagina principal
     homepage_="http://duckduckgo.com";
     address_->setText(homepage_);
     web_->load(homepage_);
