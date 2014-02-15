@@ -20,7 +20,12 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
+    QFile fileHome("homepage.txt");
+    fileHome.open(QIODevice::ReadOnly);
+    QTextStream in(&fileHome);
+    homepage_ = in.readLine();
+    fileHome.close();
+    //homepage_="http://duckduckgo.com";
     address_->setText(homepage_);
     web_->load(homepage_);
     setLayout(layout_);
@@ -42,8 +47,12 @@ void WebBrowser::onLoad()
 {
     if(!address_->text().startsWith("http://")
             && !address_->text().startsWith("https://")
-            && address_->text().length()!=0)
+            && address_->text().length()!=0) {
         web_->load("http://"+address_->text());
+    }
+    else {
+        web_->load(address_->text());
+    }
 }
 
 void WebBrowser::onHome()
@@ -58,9 +67,38 @@ void WebBrowser::onUrlChange(QUrl url)
 
 void WebBrowser::onLoadFinished(bool ok)
 {
-    if(!ok)
+    if(!ok) {
         web_->load("https://duckduckgo.com/?q="+address_->text());
+    }
+    setHistorial();
 
 
 }
 
+QLineEdit* WebBrowser::getAddress() {
+    return address_;
+}
+
+void WebBrowser::setAddress(QString linea) {
+    QUrl url(linea);
+    web_->load(url);
+}
+
+
+void WebBrowser::setHomePage () {
+    homepage_ = address_->text();
+    QFile fileHome("homepage.txt");
+    fileHome.open(QIODevice::WriteOnly);
+    QTextStream out(&fileHome);
+    out << homepage_ << endl;
+    fileHome.close();
+}
+
+
+void WebBrowser::setHistorial () {
+    QFile fileHistorial("historial.txt");
+    fileHistorial.open(QIODevice::Append);
+    QTextStream out(&fileHistorial);
+    out << address_->text() << endl;
+    fileHistorial.close();
+}
