@@ -11,6 +11,7 @@ WebBrowser::WebBrowser(QWidget *parent) :
     home_ = new QToolButton;
     bookmarks_ = new QToolButton;
     config_ = new QToolButton;
+    history_ = new QToolButton;
     layout_ = new QGridLayout;
 
     //Cargamos los iconos para los botones
@@ -20,6 +21,7 @@ WebBrowser::WebBrowser(QWidget *parent) :
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
     bookmarks_->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
     config_->setIcon(QIcon(QPixmap(":/icons/resources/config.png")));
+    history_->setIcon(QIcon(QPixmap(":/icons/resources/history.png")));
 
     //Elemento,(posicion inicial), filas, columnas
     layout_->addWidget(back_,0,0,1,1);
@@ -29,7 +31,8 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(bookmarks_,0,4,1,1);
     layout_->addWidget(address_,0,5,1,1);
     layout_->addWidget(config_,0,6,1,1);
-    layout_->addWidget(web_,1,0,1,7);
+    layout_->addWidget(history_,0,7,1,1);
+    layout_->addWidget(web_,1,0,1,8);
 
     //Guardar la pagina principal
     QSettings* settings = new QSettings("/home/nad/config.web.ini",QSettings::IniFormat);
@@ -54,6 +57,7 @@ void WebBrowser::setupConnections()
 
     connect(bookmarks_,SIGNAL(pressed()),this,SLOT(onBooks()));
     connect(config_,SIGNAL(pressed()),this,SLOT(onConfig()));
+    connect(history_,SIGNAL(pressed()),this,SLOT(onHistory()));
 }
 
 void WebBrowser::onLoad()
@@ -118,6 +122,18 @@ void WebBrowser::onConfig()
     settings->beginWriteArray("Config");
     settings->setValue("homepage",homepage_);
     settings->endArray();
+}
+
+void WebBrowser::onHistory()
+{
+    QWebHistory* hist= web_->page()->history();
+    QList<QWebHistoryItem> historyList =  hist->items();
+
+    dialog_ = new QDialog();
+    QLayout* layout = new QHBoxLayout;
+    layout->addWidget(new history(historyList));
+    dialog_->setLayout(layout);
+    dialog_->show();
 }
 
 void WebBrowser::bookChange(QString url)

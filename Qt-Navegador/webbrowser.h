@@ -10,7 +10,9 @@
 #include <QDialog>
 #include <QInputDialog>
 #include <QDir>
+#include <QWebHistory>
 #include "bookmarks.h"
+#include "history.h"
 
 class WebBrowser : public QWidget
 {
@@ -28,6 +30,7 @@ private:
     QDialog* dialog_;
     QToolButton* bookmarks_;
     QToolButton* config_;
+    QToolButton* history_;
     bookmarks* books_;
     QGridLayout *layout_;
     QString homepage_;
@@ -44,6 +47,7 @@ public slots:
 
     void onBooks();
     void onConfig();
+    void onHistory();
     void bookChange(QString);
 };
 

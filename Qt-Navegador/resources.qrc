@@ -7,5 +7,6 @@
         <file>resources/go-home.png</file>
         <file>resources/bookmarks.png</file>
         <file>resources/config.png</file>
+        <file>resources/history.png</file>
     </qresource>
 </RCC>

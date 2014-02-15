@@ -48,18 +48,22 @@ OBJECTS_DIR   = ./
 SOURCES       = ../Qt-Navegador/main.cpp \
 		../Qt-Navegador/mainwindow.cpp \
 		../Qt-Navegador/webbrowser.cpp \
-		../Qt-Navegador/bookmarks.cpp qrc_resources.cpp \
+		../Qt-Navegador/bookmarks.cpp \
+		../Qt-Navegador/history.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_webbrowser.cpp \
-		moc_bookmarks.cpp
+		moc_bookmarks.cpp \
+		moc_history.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		webbrowser.o \
 		bookmarks.o \
+		history.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_webbrowser.o \
-		moc_bookmarks.o
+		moc_bookmarks.o \
+		moc_history.o
 DIST          = /opt/Qt5.2.1/5.2.1/gcc/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.2.1/5.2.1/gcc/mkspecs/common/shell-unix.conf \
 		/opt/Qt5.2.1/5.2.1/gcc/mkspecs/common/unix.conf \
@@ -446,7 +450,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/Qt-Navegador-exe1.0.0 || mkdir -p .tmp/Qt-Navegador-exe1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/resources.qrc .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/mainwindow.h ../Qt-Navegador/webbrowser.h ../Qt-Navegador/bookmarks.h .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/bookmarks.cpp .tmp/Qt-Navegador-exe1.0.0/ && (cd `dirname .tmp/Qt-Navegador-exe1.0.0` && $(TAR) Qt-Navegador-exe1.0.0.tar Qt-Navegador-exe1.0.0 && $(COMPRESS) Qt-Navegador-exe1.0.0.tar) && $(MOVE) `dirname .tmp/Qt-Navegador-exe1.0.0`/Qt-Navegador-exe1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Qt-Navegador-exe1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/resources.qrc .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/mainwindow.h ../Qt-Navegador/webbrowser.h ../Qt-Navegador/bookmarks.h ../Qt-Navegador/history.h .tmp/Qt-Navegador-exe1.0.0/ && $(COPY_FILE) --parents ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/bookmarks.cpp ../Qt-Navegador/history.cpp .tmp/Qt-Navegador-exe1.0.0/ && (cd `dirname .tmp/Qt-Navegador-exe1.0.0` && $(TAR) Qt-Navegador-exe1.0.0.tar Qt-Navegador-exe1.0.0 && $(COMPRESS) Qt-Navegador-exe1.0.0.tar) && $(MOVE) `dirname .tmp/Qt-Navegador-exe1.0.0`/Qt-Navegador-exe1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Qt-Navegador-exe1.0.0
 
 
 clean:compiler_clean 
@@ -471,18 +475,19 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../Qt-Navegador/resources.qrc \
+		../Qt-Navegador/resources/go-home.png \
+		../Qt-Navegador/resources/cancel.png \
+		../Qt-Navegador/resources/bookmarks.png \
 		../Qt-Navegador/resources/config.png \
+		../Qt-Navegador/resources/history.png \
 		../Qt-Navegador/resources/go-next.png \
 		../Qt-Navegador/resources/go-previous.png \
-		../Qt-Navegador/resources/refresh.png \
-		../Qt-Navegador/resources/bookmarks.png \
-		../Qt-Navegador/resources/cancel.png \
-		../Qt-Navegador/resources/go-home.png
+		../Qt-Navegador/resources/refresh.png
 	/opt/Qt5.2.1/5.2.1/gcc/bin/rcc -name resources ../Qt-Navegador/resources.qrc -o qrc_resources.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_webbrowser.cpp moc_bookmarks.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_webbrowser.cpp moc_bookmarks.cpp moc_history.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_webbrowser.cpp moc_bookmarks.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_webbrowser.cpp moc_bookmarks.cpp moc_history.cpp
 moc_mainwindow.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qwidget.h \
@@ -632,6 +637,13 @@ moc_mainwindow.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QInputDialog \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qinputdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDir \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdir.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfileinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
 		../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
@@ -660,6 +672,7 @@ moc_mainwindow.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
+		../Qt-Navegador/history.h \
 		../Qt-Navegador/mainwindow.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/mainwindow.h -o moc_mainwindow.cpp
 
@@ -808,6 +821,13 @@ moc_webbrowser.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QGridLayout \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QInputDialog \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qinputdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDir \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdir.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfileinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
 		../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
@@ -837,6 +857,7 @@ moc_webbrowser.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QGridLayout \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
+		../Qt-Navegador/history.h \
 		../Qt-Navegador/webbrowser.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/webbrowser.h -o moc_webbrowser.cpp
 
@@ -992,6 +1013,122 @@ moc_bookmarks.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
 		../Qt-Navegador/bookmarks.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/bookmarks.h -o moc_bookmarks.cpp
+
+moc_history.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_integrity.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qoldbasicatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_vxworks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_power.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_alpha.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_bfin.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_s390.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_sh4a.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_sparc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobject_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmargins.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qrect.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsize.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qpoint.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpalette.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qcolor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qrgb.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdatastream.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qiodevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qpair.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qbrush.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvector.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qmatrix.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpolygon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qregion.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qline.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtransform.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpainterpath.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qimage.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpixmap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qshareddata.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qhash.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfont.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfontinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qcursor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qkeysequence.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qevent.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvariant.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdebug.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtextstream.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlocale.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qset.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qurl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qurlquery.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfile.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfiledevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvector2d.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdatetime.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebkitglobal.h \
+		../Qt-Navegador/history.h
+	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/history.h -o moc_history.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1157,6 +1294,13 @@ main.o: ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QInputDialog \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qinputdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDir \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdir.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfileinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
 		../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
@@ -1185,6 +1329,7 @@ main.o: ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
+		../Qt-Navegador/history.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QApplication \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qapplication.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcoreapplication.h \
@@ -1344,6 +1489,13 @@ mainwindow.o: ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QInputDialog \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qinputdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDir \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdir.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfileinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
 		../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
@@ -1371,7 +1523,8 @@ mainwindow.o: ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
-		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
+		../Qt-Navegador/history.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Qt-Navegador/mainwindow.cpp
 
 webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
@@ -1520,6 +1673,13 @@ webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QInputDialog \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qinputdialog.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDir \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdir.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfileinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
 		../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
@@ -1548,7 +1708,8 @@ webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
-		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
+		../Qt-Navegador/history.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o webbrowser.o ../Qt-Navegador/webbrowser.cpp
 
 bookmarks.o: ../Qt-Navegador/bookmarks.cpp ../Qt-Navegador/bookmarks.h \
@@ -1704,6 +1865,122 @@ bookmarks.o: ../Qt-Navegador/bookmarks.cpp ../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bookmarks.o ../Qt-Navegador/bookmarks.cpp
 
+history.o: ../Qt-Navegador/history.cpp ../Qt-Navegador/history.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_integrity.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qoldbasicatomic.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_vxworks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_power.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_alpha.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_bfin.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_s390.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_sh4a.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_sparc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qobject_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmargins.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qrect.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsize.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qpoint.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpalette.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qcolor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qrgb.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdatastream.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qiodevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qpair.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qbrush.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvector.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qmatrix.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpolygon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qregion.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qline.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtransform.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpainterpath.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qimage.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpixmap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qshareddata.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qhash.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfont.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qfontinfo.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qcursor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qkeysequence.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qevent.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qvariant.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qmap.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdebug.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qtextstream.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qlocale.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qset.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qurl.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qurlquery.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfile.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfiledevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvector2d.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/QWebHistory \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebhistory.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qdatetime.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWebKit/qwebkitglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o history.o ../Qt-Navegador/history.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
@@ -1715,6 +1992,9 @@ moc_webbrowser.o: moc_webbrowser.cpp
 
 moc_bookmarks.o: moc_bookmarks.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_bookmarks.o moc_bookmarks.cpp
+
+moc_history.o: moc_history.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_history.o moc_history.cpp
 
 ####### Install
 
