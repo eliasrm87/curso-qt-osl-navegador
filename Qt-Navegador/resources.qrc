@@ -6,5 +6,6 @@
         <file>resources/cancel.png</file>
         <file>resources/go-home.png</file>
         <file>resources/bookmarks.png</file>
+        <file>resources/config.png</file>
     </qresource>
 </RCC>

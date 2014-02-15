@@ -63,7 +63,7 @@ void bookmarks::onOpen()
 
 void bookmarks::onLoad()
 {
-    settings_ = new QSettings("/home/nad/bookmarks.ini",QSettings::IniFormat);
+    settings_ = new QSettings("/home/nad/config.web.ini",QSettings::IniFormat);
     settings_->beginReadArray("Bookmarks");
     const QStringList childKeys = settings_->allKeys();
     QStringList values;

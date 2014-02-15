@@ -471,11 +471,12 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../Qt-Navegador/resources.qrc \
+		../Qt-Navegador/resources/config.png \
 		../Qt-Navegador/resources/go-next.png \
-		../Qt-Navegador/resources/cancel.png \
-		../Qt-Navegador/resources/bookmarks.png \
-		../Qt-Navegador/resources/refresh.png \
 		../Qt-Navegador/resources/go-previous.png \
+		../Qt-Navegador/resources/refresh.png \
+		../Qt-Navegador/resources/bookmarks.png \
+		../Qt-Navegador/resources/cancel.png \
 		../Qt-Navegador/resources/go-home.png
 	/opt/Qt5.2.1/5.2.1/gcc/bin/rcc -name resources ../Qt-Navegador/resources.qrc -o qrc_resources.cpp
 
@@ -631,6 +632,34 @@ moc_mainwindow.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		../Qt-Navegador/bookmarks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
 		../Qt-Navegador/mainwindow.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/mainwindow.h -o moc_mainwindow.cpp
 
@@ -779,6 +808,35 @@ moc_webbrowser.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QGridLayout \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		../Qt-Navegador/bookmarks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
 		../Qt-Navegador/webbrowser.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/webbrowser.h -o moc_webbrowser.cpp
 
@@ -890,6 +948,48 @@ moc_bookmarks.cpp: /opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfiledevice.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QLineEdit \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlineedit.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextcursor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextformat.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpen.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QGridLayout \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qgridlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qboxlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
 		../Qt-Navegador/bookmarks.h
 	/opt/Qt5.2.1/5.2.1/gcc/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/bookmarks.h -o moc_bookmarks.cpp
 
@@ -1057,6 +1157,34 @@ main.o: ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		../Qt-Navegador/bookmarks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QApplication \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qapplication.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qcoreapplication.h \
@@ -1215,7 +1343,35 @@ mainwindow.o: ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/mainwindow.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
-		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		../Qt-Navegador/bookmarks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Qt-Navegador/mainwindow.cpp
 
 webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
@@ -1363,7 +1519,36 @@ webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QDialog \
-		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qdialog.h \
+		../Qt-Navegador/bookmarks.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o webbrowser.o ../Qt-Navegador/webbrowser.cpp
 
 bookmarks.o: ../Qt-Navegador/bookmarks.cpp ../Qt-Navegador/bookmarks.h \
@@ -1474,7 +1659,49 @@ bookmarks.o: ../Qt-Navegador/bookmarks.cpp ../Qt-Navegador/bookmarks.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfile.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qfiledevice.h \
 		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvector2d.h \
-		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtouchdevice.h
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QPushButton \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qpushbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QLineEdit \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlineedit.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextcursor.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextformat.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qpen.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qtextoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QGridLayout \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qgridlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qboxlayout.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QSettings \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qsettings.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/QListView \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringList \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QStringListModel \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/qstringlistmodel.h \
+		/opt/Qt5.2.1/5.2.1/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bookmarks.o ../Qt-Navegador/bookmarks.cpp
 
 qrc_resources.o: qrc_resources.cpp 

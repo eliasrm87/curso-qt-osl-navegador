@@ -8,6 +8,8 @@
 #include <QWidget>
 
 #include <QDialog>
+#include <QInputDialog>
+#include <QDir>
 #include "bookmarks.h"
 
 class WebBrowser : public QWidget
@@ -23,11 +25,10 @@ private:
     QToolButton *back_;
     QToolButton *forward_;
     QToolButton *home_;
-    //----
     QDialog* dialog_;
-    QToolButton *bookmarks_;
+    QToolButton* bookmarks_;
+    QToolButton* config_;
     bookmarks* books_;
-    //----
     QGridLayout *layout_;
     QString homepage_;
 private:
@@ -42,6 +43,7 @@ public slots:
     void onLoadFinished(bool ok);
 
     void onBooks();
+    void onConfig();
     void bookChange(QString);
 };
 
