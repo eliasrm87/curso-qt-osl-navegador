@@ -6,12 +6,18 @@ MainWindow::MainWindow(QWidget *parent)
     browser_ = new WebBrowser;
     mainMenu_= new QMenuBar(this);
 
+    //Cargar pagina de inicio
+
+
     //Marcadores
     mnuMarcadores_ = new QMenu (tr("&Marcadores"), this);//Especificamos el texto del menu
     mainMenu_-> addMenu(mnuMarcadores_);
     //Historial
     mnuHistorial_ = new QMenu (tr("&Historial"), this);//Especificamos el texto del menu
     mainMenu_-> addMenu(mnuHistorial_);
+    //Herramientas
+    mnuHerramientas_ = new QMenu (tr("&Herramientas"), this);//Especificamos el texto del menu
+    mainMenu_-> addMenu(mnuHerramientas_);
 
 
 
@@ -21,10 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
     mnuMarcadores_->addAction(actAddMarcadores_);
     VerMarcadores();
 
+    //CambiarInicio
+    actCambiarInicio_ = new QAction(tr("&Elegir como pagina Inicio"),this);
+    mnuHerramientas_->addAction(actCambiarInicio_);
+
 
     //Conexiones
     //Conectamos las aciones de los menus con nuestros slots
     connect(actAddMarcadores_, SIGNAL(triggered()),this, SLOT (AddMarcadores()));
+     connect(actCambiarInicio_, SIGNAL(triggered()),this, SLOT (CambiarInicio()));
 
 
     //Añadimos la barra menu
@@ -70,4 +81,10 @@ void MainWindow::PulsarMarcador()
 {
     QAction* act = (QAction*)QObject::sender();//Puntero al objeto que envio la señal que activo este slot
     browser_->setAddress(act->text());
+}
+
+void MainWindow::CambiarInicio()
+{
+    browser_->setHomePage();
+
 }

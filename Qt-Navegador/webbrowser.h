@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QFile>
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -24,6 +25,7 @@ private:
     QString homepage_;
 private:
     void setupConnections();
+    void CargarPaginaInicio();
 signals:
 
 public slots:
@@ -35,6 +37,7 @@ public slots:
 public:
     QString getAddress();
     void setAddress(QString linea);
+    void setHomePage();
 };
 
 #endif // WEBBROWSER_H

@@ -24,10 +24,12 @@ private:
      QMenuBar* mainMenu_;
      QMenu* mnuMarcadores_;
      QMenu* mnuHistorial_;
+     QMenu* mnuHerramientas_;
 
      //Acciones
      QAction* actAddMarcadores_;
      QAction* actVerMarcadores_;
+     QAction* actCambiarInicio_;
 
      QString txtAdress;
 
@@ -35,6 +37,7 @@ public slots:
 
      void AddMarcadores();
      void PulsarMarcador();
+     void CambiarInicio();
 };
 
 #endif // MAINWINDOW_H
