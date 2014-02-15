@@ -6,6 +6,10 @@
 #include <QLineEdit>//Para meter las URL's
 #include <QToolButton>//Facilita el hecho de poner iconos
 #include <QWidget>
+
+#include <QDialog>
+#include "bookmarks.h"
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -20,7 +24,9 @@ private:
     QToolButton *forward_;
     QToolButton *home_;
     //----
+    QDialog* dialog_;
     QToolButton *bookmarks_;
+    bookmarks* books;
     //----
     QGridLayout *layout_;
     QString homepage_;
@@ -34,6 +40,9 @@ public slots:
     void onUrlChange(QUrl url);
 
     void onLoadFinished(bool ok);
+
+    void onBooks();
+    void bookChange(QString);
 };
 
 #endif // WEBBROWSER_H
