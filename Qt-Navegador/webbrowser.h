@@ -6,6 +6,9 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QTextStream>
+#include <QSettings>
+#include <QMenu>
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -19,17 +22,18 @@ private:
     QToolButton *back_;
     QToolButton *forward_;
     QToolButton *home_;
+    QToolButton *marcador_;
     QGridLayout *layout_;
     QString homepage_;
 private:
     void setupConnections();
 signals:
-
+    void s_marcador(QString);
 public slots:
     void onLoad();
     void onHome();
     void onUrlChange(QUrl url);
-
+    void guardar_marcador();
     void onLoadFinished(bool ok);
 };
 
