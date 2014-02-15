@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    webbrowser.cpp
+    webbrowser.cpp \
+    jactionfavorito.cpp \
+    jdialogo.cpp
 
 HEADERS  += mainwindow.h \
-    webbrowser.h
+    webbrowser.h \
+    jactionfavorito.h \
+    jdialogo.h
 
 RESOURCES += \
     resources.qrc
