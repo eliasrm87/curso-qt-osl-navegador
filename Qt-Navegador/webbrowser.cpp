@@ -92,6 +92,7 @@ void WebBrowser::onLoadFinished(bool ok)
 void WebBrowser::onBooks()
 {
     dialog_ = new QDialog();
+    dialog_->setWindowTitle("Joining - Marcadores");
     QLayout* layout = new QHBoxLayout;
     books_ = new bookmarks();
     books_->setUrl(address_->text());
@@ -107,7 +108,7 @@ void WebBrowser::onConfig()
     bool ok;
     QString text = QInputDialog::getText(this, tr("Cambiar Pagina de Inicio"),
                                               tr("Página actual: ")+homepage_, QLineEdit::Normal,
-                                              QDir::home().dirName(), &ok);
+                                              address_->text(), &ok);
     if (ok && !text.isEmpty()){
         if(!text.startsWith("http://")
                 && !text.startsWith("https://")
@@ -130,6 +131,8 @@ void WebBrowser::onHistory()
     QList<QWebHistoryItem> historyList =  hist->items();
 
     dialog_ = new QDialog();
+    dialog_->setWindowTitle("Joining - Historial");
+    dialog_->setWindowIconText("Historial");
     QLayout* layout = new QHBoxLayout;
     layout->addWidget(new history(historyList));
     dialog_->setLayout(layout);

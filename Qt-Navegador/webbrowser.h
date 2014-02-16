@@ -9,7 +9,6 @@
 
 #include <QDialog>
 #include <QInputDialog>
-#include <QDir>
 #include <QWebHistory>
 #include "bookmarks.h"
 #include "history.h"
