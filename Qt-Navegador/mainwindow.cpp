@@ -28,12 +28,29 @@ MainWindow::MainWindow(QWidget *parent)
     mainMenu_->addMenu(mnuHerramientas_);
 
     actCambiarHome_ = new QAction(tr("&Convertir en pagina de inicio ..."), this);
-    actCambiarHome_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+    actCambiarHome_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
     mnuHerramientas_->addAction(actCambiarHome_);
+
+    // Historial
+    mnuHistorial_ = new QMenu(tr("&Historial"), this);
+    mainMenu_->addMenu(mnuHistorial_);
+
+
+    actEditarHistorial_ = new QAction(tr("&Editar historial"), this);
+    actEditarHistorial_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+    mnuHistorial_->addAction(actEditarHistorial_);
+
+
+    actBorrarHistorial_ = new QAction(tr("&Borrar todo el historial"), this);
+    actBorrarHistorial_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_D));
+    mnuHistorial_->addAction(actBorrarHistorial_);
+
+    MostrarHistorial();
 
     // Conexiones
     connect(actSalir_,  SIGNAL(triggered()), this, SLOT(close()));
     connect(actCambiarHome_,  SIGNAL(triggered()), this, SLOT(CambiarHome()));
+    connect(actBorrarHistorial_,  SIGNAL(triggered()), this, SLOT(BorrarTodoHistorial()));
 
 
     this->setMenuBar(mainMenu_);
@@ -112,4 +129,32 @@ void MainWindow::CambiarHome(){
     QString url = browser_->getAddress();
     browser_->setHomeAddress(url);
     //ebrowser_->saveSettings(url);
+}
+
+void MainWindow::MostrarHistorial(){
+
+    QFile file("historial.txt");
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "error", file.errorString());
+    }
+
+    QTextStream in(&file);
+
+    while(!in.atEnd()) {
+        QString line = in.readLine();
+        actHistorial_ = new QAction(line, this);
+        mnuHistorial_->addAction(actHistorial_);
+        connect(actHistorial_,  SIGNAL(triggered()), this, SLOT(PulsarMarcador()));
+    }
+
+    file.close();
+
+}
+
+void MainWindow::BorrarTodoHistorial(){
+
+    QFile file("historial.txt");
+    file.open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
+
+    file.close();
 }

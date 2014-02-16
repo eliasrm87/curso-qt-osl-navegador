@@ -1,4 +1,5 @@
 #include "webbrowser.h"
+#include "mainwindow.h"
 
 WebBrowser::WebBrowser(QWidget *parent) :
     QWidget(parent)
@@ -58,6 +59,7 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     // Añadir aqui fichero historial
+    GuardarPaginaEnHistorial(url.toString());
     address_->setText(url.toString());
 }
 
@@ -99,4 +101,17 @@ void WebBrowser::saveSettings(QString data){
 void WebBrowser::GoHome(){
     address_->setText(homepage_);
     web_->load(homepage_);
+}
+
+
+void WebBrowser::GuardarPaginaEnHistorial(QString url){
+
+    QFile file("historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+    out << url << endl;
+
+    /* Close the file */
+    file.close();
 }

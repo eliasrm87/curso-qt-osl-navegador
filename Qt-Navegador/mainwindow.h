@@ -6,6 +6,8 @@
 #include <QMenu>
 #include <QFile>
 #include <QMessageBox>
+#include <QTextStream>
+
 #include "webbrowser.h"
 class MainWindow : public QMainWindow
 {
@@ -17,6 +19,7 @@ public:
     ~MainWindow();
     void Marcadores();
     void AbrirArchivoMarcadores();
+    void MostrarHistorial();
 
 private:
 
@@ -38,11 +41,19 @@ private:
     QMenu      *mnuHerramientas_;
     QAction    *actCambiarHome_;
 
+    // Menu -> Historial
+    QMenu      *mnuHistorial_;
+    QAction    *actEditarHistorial_;
+    QAction    *actBorrarHistorial_;
+    QAction    *actMostrarHistorial_;
+    QAction    *actHistorial_;
+
 public slots:
 
     void NuevoMarcador();
     void PulsarMarcador();
     void CambiarHome();
+    void BorrarTodoHistorial();
 
 
 };

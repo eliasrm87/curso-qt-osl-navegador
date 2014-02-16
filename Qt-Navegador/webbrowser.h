@@ -8,6 +8,8 @@
 #include <QWidget>
 #include <QLineEdit>
 #include <QSettings>
+#include <QFile>
+#include <QTextStream>
 
 class WebBrowser : public QWidget
 {
@@ -20,6 +22,7 @@ public:
     void loadSettings();
     void saveSettings(QString data);
     void GoHome();
+    void GuardarPaginaEnHistorial(QString url);
 
 private:
     QWebView *web_;

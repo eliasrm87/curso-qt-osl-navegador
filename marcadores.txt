@@ -9,3 +9,5 @@ https://duckduckgo.com/
 http://indecorzone.com/es/
 http://www.google.es/
 https://duckduckgo.com/
+https://duckduckgo.com/?q=http://etsii.ull.es
+https://duckduckgo.com/
