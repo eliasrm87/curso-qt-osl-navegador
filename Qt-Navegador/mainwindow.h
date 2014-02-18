@@ -16,15 +16,16 @@ public:
     ~MainWindow();
 private:
     WebBrowser *browser_;
-    QMenu* mnu_;
+    QMenu* marcadores_;
     QAction * home_;
     QMenu* preferencias_;
     ChangeH * change_;
+    QMenu * historial_;
 
 private slots:
-    void marcador(QString marcador);
-    void homePage(); //Para crear la ventana y demás necesario para poder pasarle los datos
-
+    void marcador_s(QString marcador);
+    void homePage_s(); //Para crear la ventana y demás necesario para poder pasarle los datos
+    void historial_s(QString historial);
 
 
 };

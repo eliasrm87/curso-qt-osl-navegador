@@ -27,6 +27,7 @@ WebBrowser::WebBrowser(QWidget *parent) :
     address_->setText(homepage_);
     web_->load(homepage_);
     setLayout(layout_);
+    homepage_=settings.value("HomaPage").toString();
     setupConnections();
 }
 
@@ -61,6 +62,7 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
+    emit s_historial(url.toString());
 }
 
 void WebBrowser::onLoadFinished(bool ok)
@@ -74,8 +76,9 @@ void WebBrowser::guardar_marcador()
   emit s_marcador(address_->text());
 
 }
-void WebBrowser::set_home_page(QUrl ur1){
+void WebBrowser::set_home_page_s(QUrl ur1){
     homepage_=ur1.toString();
+    settings.setValue("HomePage",homepage_);
 }
 
 
