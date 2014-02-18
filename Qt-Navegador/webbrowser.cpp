@@ -10,21 +10,45 @@ WebBrowser::WebBrowser(QWidget *parent) :
     forward_ = new QToolButton;
     home_ = new QToolButton;
     layout_ = new QGridLayout;
+
+
     refresh_->setIcon(QIcon(QPixmap(":/icons/resources/refresh.png")));
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
-    layout_->addWidget(back_,0,0,1,1);
-    layout_->addWidget(forward_,0,1,1,1);
-    layout_->addWidget(home_,0,2,1,1);
-    layout_->addWidget(refresh_,0,3,1,1);
-    layout_->addWidget(address_,0,4,1,1);
-    layout_->addWidget(web_,1,0,1,5);
+
+    homedefault_ = new QToolButton;
+    homedefault_ -> setIcon(QIcon(QPixmap(":/icons/resources/insert-link.png")));
+
+    layout_->addWidget(back_,1,0,1,1);
+    layout_->addWidget(forward_,1,1,1,1);
+    layout_->addWidget(home_,1,2,1,1);
+    layout_->addWidget(refresh_,1,3,1,1);
+    layout_->addWidget(address_,1,4,1,1);
+    layout_->addWidget(web_,2,0,1,5);
+
+    layout_ ->addWidget(homedefault_,0,5,1,1);
+
     homepage_="http://duckduckgo.com";
     address_->setText(homepage_);
     web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
+
+    menu_ = new QMenuBar (this);
+    mnuEditar_ = new QMenu(tr("&Editar"),this);
+    menu_ -> addMenu (mnuEditar_);
+
+
+    actEditarH_ = new QAction (tr("&Historial"), this);
+    actEditarH_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H)); //Opcional
+    mnuEditar_ -> addAction (actEditarH_);
+
+    actEditarM_ = new QAction (tr("&Marcadores"), this);
+    actEditarM_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B)); //Opcional
+    mnuEditar_ -> addAction (actEditarM_);
+    connect(actEditarH_, SIGNAL (triggered()), this, SLOT(alHistorial()));
+
 }
 
 void WebBrowser::setupConnections()
@@ -36,6 +60,8 @@ void WebBrowser::setupConnections()
     connect(home_,SIGNAL(pressed()),this,SLOT(onHome()));
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
+
+    connect(homedefault_, SIGNAL(pressed()), this, SLOT(onHomedefault()));
 }
 
 void WebBrowser::onLoad()
@@ -44,11 +70,20 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
 }
 
 void WebBrowser::onHome()
 {
     web_->load(homepage_);
+}
+
+void WebBrowser::onHomedefault() {
+
+
+   homepage_ = address_->text();
+
 }
 
 void WebBrowser::onUrlChange(QUrl url)
@@ -63,4 +98,29 @@ void WebBrowser::onLoadFinished(bool ok)
 
 
 }
+
+void WebBrowser::alHistorial(){
+    //Falla en tiempo de ejecución
+
+    QWebView* QWebViewptr;
+    QWebHistory* Historyptr = QWebViewptr -> history();
+    QList<QWebHistoryItem> listahistorial = Historyptr -> items();
+
+    //Intento mostrar mensajes con los historiales almacenados en QList
+    QMessageBox mensaje;
+    for (int i = 0; i < listahistorial.size(); i++){
+        mensaje.setText(listahistorial[i].title());
+        mensaje.exec();
+    }
+
+    //Intento mostrar el numero de registros almacenados en el historial
+    int Num_items_i = Historyptr->count();
+    QMessageBox mensaje2;
+    QString Num_items_s = QString::number(Num_items_i);
+    mensaje2.setText(Num_items_s);
+    mensaje2.exec();
+
+
+}
+
 
