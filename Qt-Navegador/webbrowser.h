@@ -48,7 +48,7 @@ public slots:
 
     void onLoadFinished(bool ok);
 
-    void onHomedefault(QUrl url);
+    void onHomedefault();
 
     void alHistorial();
 };

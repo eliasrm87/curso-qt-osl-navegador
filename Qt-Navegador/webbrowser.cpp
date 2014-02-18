@@ -61,7 +61,7 @@ void WebBrowser::setupConnections()
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
 
-    connect(homedefault_, SIGNAL(pressed()), this, SLOT(onHomedefault(QUrl)));
+    connect(homedefault_, SIGNAL(pressed()), this, SLOT(onHomedefault()));
 }
 
 void WebBrowser::onLoad()
@@ -79,10 +79,10 @@ void WebBrowser::onHome()
     web_->load(homepage_);
 }
 
-void WebBrowser::onHomedefault(QUrl url) {
+void WebBrowser::onHomedefault() {
 
 
-   homepage_ = url.toString();
+   homepage_ = address_->text();
 
 }
 
@@ -100,11 +100,27 @@ void WebBrowser::onLoadFinished(bool ok)
 }
 
 void WebBrowser::alHistorial(){
-     /*QMessageBox mensaje;
-     mensaje.setText("Mensaje de prueba");
-     mensaje.exec();*/
+    //Falla en tiempo de ejecución
 
-    //QWebHistory
+    QWebView* QWebViewptr;
+    QWebHistory* Historyptr = QWebViewptr -> history();
+    QList<QWebHistoryItem> listahistorial = Historyptr -> items();
+
+    //Intento mostrar mensajes con los historiales almacenados en QList
+    QMessageBox mensaje;
+    for (int i = 0; i < listahistorial.size(); i++){
+        mensaje.setText(listahistorial[i].title());
+        mensaje.exec();
+    }
+
+    //Intento mostrar el numero de registros almacenados en el historial
+    int Num_items_i = Historyptr->count();
+    QMessageBox mensaje2;
+    QString Num_items_s = QString::number(Num_items_i);
+    mensaje2.setText(Num_items_s);
+    mensaje2.exec();
+
+
 }
 
 
