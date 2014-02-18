@@ -55,6 +55,7 @@ void WebBrowser::onLoad()
 void WebBrowser::onHome()
 {
     web_->load(homepage_);
+
 }
 
 void WebBrowser::onUrlChange(QUrl url)
@@ -72,6 +73,9 @@ void WebBrowser::guardar_marcador()
 
   emit s_marcador(address_->text());
 
+}
+void WebBrowser::set_home_page(QUrl ur1){
+    homepage_=ur1.toString();
 }
 
 

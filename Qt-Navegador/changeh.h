@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QUrl>
 
 
 class ChangeH : public QDialog
@@ -14,15 +15,17 @@ class ChangeH : public QDialog
     Q_OBJECT
 public:
     explicit ChangeH(QWidget *parent = 0);
-    QString home;
+
 private:
     QGridLayout * layout_;
     QLineEdit * edit_;
-    QPushButton * Tbutton_;
+    QPushButton * Tbutton_Aplicar_;
+    QPushButton * Tbutton_Cerrar_;
+
 
 
 signals:
-   void s_change(QString);
+   void s_change(QUrl);
 public slots:
    void change();
 

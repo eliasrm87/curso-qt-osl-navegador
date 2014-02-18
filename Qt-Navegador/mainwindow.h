@@ -24,7 +24,7 @@ private:
 private slots:
     void marcador(QString marcador);
     void homePage(); //Para crear la ventana y demás necesario para poder pasarle los datos
-    void set_home_page(QString);
+
 
 
 };

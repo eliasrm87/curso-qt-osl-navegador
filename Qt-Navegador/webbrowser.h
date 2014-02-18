@@ -14,7 +14,7 @@ class WebBrowser : public QWidget
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
-    void set_home_page(QString home){ homepage_=home;}
+
 
 private:
     QWebView *web_;
@@ -36,6 +36,7 @@ public slots:
     void onUrlChange(QUrl url);
     void guardar_marcador();
     void onLoadFinished(bool ok);
+    void set_home_page(QUrl ur1);
 };
 
 #endif // WEBBROWSER_H

@@ -17,8 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(browser_,SIGNAL(s_marcador(QString)),this,SLOT(marcador(QString)));
     connect(home_,SIGNAL(triggered()),this,SLOT(homePage()));
-    //connect(change_,SIGNAL(s_change(QString),this,SLOT(set_home_page(QString)));
-    connect(change_,SIGNAL(s_change(QString)),this,SLOT(set_home_page(QString)));
+    connect(change_,SIGNAL(s_change(QUrl)),browser_, SLOT(set_home_page(QUrl)));
 
 
 }
@@ -36,11 +35,7 @@ void MainWindow::homePage()
   change_->show();
 
 }
-void MainWindow::set_home_page(QString home)
-{
-  //browser_->set_home_page(home);
-  browser_->set_home_page(change_->home);
-}
+
 
 
 
