@@ -7,6 +7,9 @@
 #include <QToolButton>
 #include <QWidget>
 #include <QFile>
+#include <QTabWidget>
+#include <QWheelEvent>
+
 
 
 class WebBrowser : public QWidget
@@ -25,6 +28,8 @@ private:
     QGridLayout *layout_;
     QString homepage_;
 
+    int x = 0;
+
 private:
     void setupConnections();
 signals:
@@ -36,6 +41,8 @@ public slots:
 
     void onLoadFinished(bool ok);
     void setHistorial();
+    void wheelEvent ( QWheelEvent * event );
+
 
 public:
     QLineEdit* getAddress();

@@ -71,8 +71,6 @@ void WebBrowser::onLoadFinished(bool ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
     }
     setHistorial();
-
-
 }
 
 QLineEdit* WebBrowser::getAddress() {
@@ -102,3 +100,13 @@ void WebBrowser::setHistorial () {
     out << address_->text() << endl;
     fileHistorial.close();
 }
+
+
+
+// REVISAR --- NO FUNCIONA
+void WebBrowser::wheelEvent ( QWheelEvent * event ) {
+   x += event->delta()/120;
+   qDebug("%d", x);
+   web_->setZoomFactor(1+(qreal(x)/10));
+
+ }

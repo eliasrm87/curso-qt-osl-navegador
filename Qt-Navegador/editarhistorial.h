@@ -6,6 +6,11 @@
 #include <QCheckBox>
 #include <QTextStream>
 #include <QFile>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QAction>
+#include <QMessageBox>
 
 class editarHistorial : public QDialog
 {
@@ -16,6 +21,9 @@ public:
 signals:
 
 public slots:
+
+private slots:
+    void borrarHistorial();
 
 private:
     QGridLayout* layout_;
