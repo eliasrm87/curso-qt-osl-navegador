@@ -1,6 +1,6 @@
 #include "msginput.h"
 
-msgInput::msgInput(QString mensaje, QWidget *parent,) :
+msgInput::msgInput(QString mensaje, QWidget *parent) :
     QDialog(parent)
 {
     //Primero tiene que salir MENSAJE
@@ -8,7 +8,7 @@ msgInput::msgInput(QString mensaje, QWidget *parent,) :
     //Boton de OK para coger los datos
     //Boton cancel para salir sin recoger dato
 
-
+   dato_= "NULL";
    opcion_ = new QLineEdit;
    ok_ = new QToolButton;
    cancel_ = new QToolButton;
@@ -44,12 +44,19 @@ msgInput::msgInput(QString mensaje, QWidget *parent,) :
 
 }
 
+
+
 void msgInput::alok()
 {
-    opcion_->text();
+    dato_= opcion_->text();
     //Falta implementar lo de a donde mando opcion_
-
     close();
 }
+
+QString msgInput::get_dato()
+{
+    return dato_;
+}
+
 
 

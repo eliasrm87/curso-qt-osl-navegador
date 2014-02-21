@@ -20,12 +20,14 @@ private:
     QToolButton *cancel_;
     QGridLayout *layout_;
     QLabel *mensaje_;
+    QString dato_;
 
 signals:
 
 public slots:
     void alok();
-    void onDatos();
+public:
+    QString get_dato();
 
 };
 
