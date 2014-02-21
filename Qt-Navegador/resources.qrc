@@ -8,5 +8,6 @@
         <file>Start-Menu-Favorites-icon.png</file>
         <file>Zoom-In-icon.png</file>
         <file>Zoom-Out-icon.png</file>
+        <file>blue-plus-icon.png</file>
     </qresource>
 </RCC>

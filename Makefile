@@ -467,14 +467,15 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: Qt-Navegador/resources.qrc \
-		Qt-Navegador/Start-Menu-Favorites-icon.png \
-		Qt-Navegador/Zoom-In-icon.png \
 		Qt-Navegador/Zoom-Out-icon.png \
-		Qt-Navegador/resources/go-previous.png \
-		Qt-Navegador/resources/go-next.png \
+		Qt-Navegador/Zoom-In-icon.png \
+		Qt-Navegador/blue-plus-icon.png \
+		Qt-Navegador/Start-Menu-Favorites-icon.png \
 		Qt-Navegador/resources/cancel.png \
 		Qt-Navegador/resources/refresh.png \
-		Qt-Navegador/resources/go-home.png
+		Qt-Navegador/resources/go-previous.png \
+		Qt-Navegador/resources/go-home.png \
+		Qt-Navegador/resources/go-next.png
 	/home/aaron/Qt/5.2.0/gcc/bin/rcc -name resources Qt-Navegador/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_webbrowser.cpp
@@ -649,6 +650,11 @@ moc_mainwindow.cpp: ../../../Qt/5.2.0/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qstyle.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.2.0/gcc/include/QtCore/QMetaObject \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/QMenu \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qmenu.h \
@@ -660,11 +666,6 @@ moc_mainwindow.cpp: ../../../Qt/5.2.0/gcc/include/QtWidgets/QMainWindow \
 		../../../Qt/5.2.0/gcc/include/QtGui/QClipboard \
 		../../../Qt/5.2.0/gcc/include/QtGui/qclipboard.h \
 		../../../Qt/5.2.0/gcc/include/QtGui/QKeySequence \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		Qt-Navegador/mainwindow.h
 	/home/aaron/Qt/5.2.0/gcc/bin/moc $(DEFINES) $(INCPATH) Qt-Navegador/mainwindow.h -o moc_mainwindow.cpp
 
@@ -834,6 +835,11 @@ moc_webbrowser.cpp: ../../../Qt/5.2.0/gcc/include/QtWidgets/QGridLayout \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		Qt-Navegador/webbrowser.h
 	/home/aaron/Qt/5.2.0/gcc/bin/moc $(DEFINES) $(INCPATH) Qt-Navegador/webbrowser.h -o moc_webbrowser.cpp
 
@@ -1021,6 +1027,11 @@ main.o: Qt-Navegador/main.cpp Qt-Navegador/mainwindow.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qstyle.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.2.0/gcc/include/QtCore/QMetaObject \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/QMenu \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qmenu.h \
@@ -1032,11 +1043,6 @@ main.o: Qt-Navegador/main.cpp Qt-Navegador/mainwindow.h \
 		../../../Qt/5.2.0/gcc/include/QtGui/QClipboard \
 		../../../Qt/5.2.0/gcc/include/QtGui/qclipboard.h \
 		../../../Qt/5.2.0/gcc/include/QtGui/QKeySequence \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/QApplication \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qapplication.h \
 		../../../Qt/5.2.0/gcc/include/QtCore/qcoreapplication.h \
@@ -1216,6 +1222,11 @@ mainwindow.o: Qt-Navegador/mainwindow.cpp Qt-Navegador/mainwindow.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qstyle.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h \
 		../../../Qt/5.2.0/gcc/include/QtCore/QMetaObject \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/QMenu \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qmenu.h \
@@ -1226,12 +1237,7 @@ mainwindow.o: Qt-Navegador/mainwindow.cpp Qt-Navegador/mainwindow.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/QAction \
 		../../../Qt/5.2.0/gcc/include/QtGui/QClipboard \
 		../../../Qt/5.2.0/gcc/include/QtGui/qclipboard.h \
-		../../../Qt/5.2.0/gcc/include/QtGui/QKeySequence \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h
+		../../../Qt/5.2.0/gcc/include/QtGui/QKeySequence
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o Qt-Navegador/mainwindow.cpp
 
 webbrowser.o: Qt-Navegador/webbrowser.cpp Qt-Navegador/webbrowser.h \
@@ -1400,7 +1406,12 @@ webbrowser.o: Qt-Navegador/webbrowser.cpp Qt-Navegador/webbrowser.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qstyle.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.2.0/gcc/include/QtWidgets/qtabwidget.h \
-		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QVBoxLayout \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabWidget \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QTabBar \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/QPushButton \
+		../../../Qt/5.2.0/gcc/include/QtWidgets/qpushbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o webbrowser.o Qt-Navegador/webbrowser.cpp
 
 qrc_resources.o: qrc_resources.cpp 

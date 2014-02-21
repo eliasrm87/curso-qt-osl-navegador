@@ -6,13 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
     browser_ = new WebBrowser;
     setCentralWidget(browser_);
 
-    venta_ = new QToolButton;
-    layout_ = new QGridLayout;
-    layout_->addWidget(venta_,0,4,1,1);
-    venta_->setText("Boton");
-    connect(venta_, SIGNAL(pressed()),this,SLOT(new_win()));
-
-
     this->setWindowTitle(tr("NAVEGADOR"));
     mainMenu_= new QMenuBar(this);
     mnuArchivo_= new QMenu(tr("&Archivo"),this);
@@ -52,33 +45,13 @@ void MainWindow::alAcercaDe()
         close();
 }
 
-void MainWindow::new_win()
-{
-    base_=new QWebView();
-    base_->load(QUrl ("http://www.youtube.com/"));
-    base_->show();
-    caja_=new QVBoxLayout();
-    caja_->insertWidget(0,base_,0,Qt::AlignBottom);
-    ventana_=new QTabWidget();
-    ventana_->setLayout(caja_);
-    ventana_->addTab(new QWidget,"New");
-    tab_= ventana_->tabBar();
-    salir_=new QPushButton();
-    salir_->setText("x");
-    tab_->setTabButton(tab_->count()-1,QTabBar::RightSide,salir_);
-    layout_->addWidget(ventana_,1,0,1,1);
-    connect(salir_,SIGNAL(pressed()),this,SLOT(cerrar2()));
-}
-
-void MainWindow::cerrar2()
-{
-    ventana_->close();
-}
 
 MainWindow::~MainWindow()
 {
     mainMenu_->deleteLater();
     mnuArchivo_->deleteLater();
     actArchivoSalir_->deleteLater();
+    mnuAyuda_->deleteLater();
+    actAyudaAcerca_->deleteLater();
 }
 

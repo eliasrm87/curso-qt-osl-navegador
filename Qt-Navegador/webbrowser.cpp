@@ -19,6 +19,9 @@ WebBrowser::WebBrowser(QWidget *parent) :
     z2_=new QToolButton;
     z2_->setIcon(QIcon(QPixmap(":/icons/Zoom-Out-icon.png")));
 
+    venta_ = new QToolButton;
+    venta_->setIcon(QIcon(QPixmap(":/icons/blue-plus-icon.png")));
+
     layout_->addWidget(back_,0,0,1,1);
     layout_->addWidget(forward_,0,1,1,1);
     layout_->addWidget(home_,0,2,1,1);
@@ -35,7 +38,7 @@ WebBrowser::WebBrowser(QWidget *parent) :
     lista_= new QListWidget();
     layout_->addWidget(lista_,0,6,2,2);
     lista_->setVisible(false);
-
+    layout_->addWidget(venta_,0,12,1,1);
     control_ = false;
 
     homepage_="http://duckduckgo.com";
@@ -58,6 +61,7 @@ void WebBrowser::setupConnections()
     connect(marcador_,SIGNAL(pressed()),this,SLOT(marcadores()));
     connect(z1_,SIGNAL(pressed()),this,SLOT(zoom1()));
     connect(z2_,SIGNAL(pressed()),this,SLOT(zoom2()));
+    connect(venta_, SIGNAL(pressed()),this,SLOT(new_win()));
 }
 
 void WebBrowser::onLoad()
@@ -70,18 +74,15 @@ void WebBrowser::onLoad()
         web_->load(address_->text());
 }
 
-void WebBrowser::onHome(QString cad)
-{
-    homepage_=cad;
+void WebBrowser::onHome(){
+     web_->load(homepage_);
 }
 
-void WebBrowser::onUrlChange(QUrl url)
-{
+void WebBrowser::onUrlChange(QUrl url){
     address_->setText(url.toString());
 }
 
-void WebBrowser::onLoadFinished(bool ok)
-{
+void WebBrowser::onLoadFinished(bool ok){
     if(!ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
 }
@@ -134,4 +135,26 @@ void WebBrowser::zoom1(){
 
 void WebBrowser::zoom2(){
     web_->setZoomFactor(web_->zoomFactor()-0.25);
+}
+
+void WebBrowser::new_win()
+{
+    base_=new QWebView();
+    base_->load(QUrl ("http://www.youtube.com/"));
+    base_->show();
+    caja_=new QVBoxLayout();
+    caja_->insertWidget(0,base_,0,Qt::AlignBottom);
+    ventana_=new QTabWidget();
+    ventana_->setLayout(caja_);
+    ventana_->addTab(new QWidget,"New");
+    tab_= ventana_->tabBar();
+    salir_=new QPushButton();
+    salir_->setText("x");
+    tab_->setTabButton(tab_->count()-1,QTabBar::RightSide,salir_);
+    layout_->addWidget(ventana_,1,0,1,1);
+    connect(salir_,SIGNAL(pressed()),this,SLOT(cerrar2()));
+}
+
+void WebBrowser::cerrar2(){
+    ventana_->close();
 }

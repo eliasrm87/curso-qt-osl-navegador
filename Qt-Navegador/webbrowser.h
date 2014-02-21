@@ -12,6 +12,10 @@
 #include <QMessageBox>
 #include <iostream>
 #include <QListWidget>
+#include <QVBoxLayout>
+#include <QTabWidget>
+#include <QTabBar>
+#include <QPushButton>
 
 using namespace std;
 
@@ -42,6 +46,13 @@ private:
     QListWidgetItem *item_;
     bool control_;
 
+    QWebView *base_;
+    QVBoxLayout *caja_;
+    QTabWidget *ventana_;
+    QTabBar *tab_;
+    QPushButton *salir_;
+    QToolButton *venta_;
+
 private:
     void setupConnections();
 
@@ -49,7 +60,7 @@ signals:
 
 public slots:
     void onLoad();
-    void onHome(QString cad="");
+    void onHome();
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
 
@@ -57,6 +68,9 @@ public slots:
     void ir_a(QListWidgetItem *it);
     void zoom1();
     void zoom2();
+
+    void new_win();
+    void cerrar2();
 };
 
 #endif // WEBBROWSER_H
