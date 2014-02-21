@@ -43,7 +43,6 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::activateTab(int index) {
-    qDebug("%d tab selected", index);
     pestanaActual_ = index;
 }
 
@@ -193,9 +192,7 @@ void MainWindow::restaurarSesion () {
 
 
 void MainWindow::crearPestana() {
-  //  WebBrowser* browser_2 = new WebBrowser;
     browserList_.append(new WebBrowser);
-    qDebug("%d browser list size", browserList_.size());
     tabs_->addTab(browserList_.last(),browserList_.last()->getAddress()->text().left(25));
 }
 
@@ -210,8 +207,6 @@ void MainWindow::cerrarPestana(const int& index) {
     }
 
     browserList_.removeAt(pestanaActual_);
-
-    qDebug("%d browser list size", browserList_.size());
 
     QWidget* tabItem = tabs_->widget(index);
     tabs_->removeTab(index);

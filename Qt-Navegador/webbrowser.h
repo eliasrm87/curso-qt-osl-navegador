@@ -8,8 +8,6 @@
 #include <QWidget>
 #include <QFile>
 #include <QTabWidget>
-#include <QWheelEvent>
-
 
 
 class WebBrowser : public QWidget
@@ -27,8 +25,9 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
-
-    int x = 0;
+    QToolButton* zoomMas_;
+    QToolButton* zoomMenos_;
+    QToolButton* zoomOriginal_;
 
 private:
     void setupConnections();
@@ -41,7 +40,9 @@ public slots:
 
     void onLoadFinished(bool ok);
     void setHistorial();
-    void wheelEvent ( QWheelEvent * event );
+    void ampliar();
+    void reducir();
+    void original();
 
 
 public:

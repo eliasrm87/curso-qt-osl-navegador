@@ -14,12 +14,31 @@ WebBrowser::WebBrowser(QWidget *parent) :
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
+
+
+    zoomMas_ = new QToolButton;
+    zoomMenos_ = new QToolButton;
+    zoomOriginal_ = new QToolButton;
+    zoomMas_->setIcon(QIcon(QPixmap(":/icons/resources/zoom-in.png")));
+    zoomMenos_->setIcon(QIcon(QPixmap(":/icons/resources/zoom-out.png")));
+    zoomOriginal_->setIcon(QIcon(QPixmap(":/icons/resources/zoom-original.png")));
+
+    zoomMas_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus));
+    zoomMenos_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus));
+    zoomOriginal_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_0));
+
+
     layout_->addWidget(back_,0,0,1,1);
     layout_->addWidget(forward_,0,1,1,1);
     layout_->addWidget(home_,0,2,1,1);
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
-    layout_->addWidget(web_,1,0,1,5);
+
+    layout_->addWidget(zoomMenos_,0,5,1,1);
+    layout_->addWidget(zoomOriginal_,0,6,1,1);
+    layout_->addWidget(zoomMas_,0,7,1,1);
+
+    layout_->addWidget(web_,1,0,1,8);
     QFile fileHome("homepage.txt");
     fileHome.open(QIODevice::ReadOnly);
     QTextStream in(&fileHome);
@@ -30,6 +49,7 @@ WebBrowser::WebBrowser(QWidget *parent) :
     web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
+
 }
 
 void WebBrowser::setupConnections()
@@ -41,7 +61,24 @@ void WebBrowser::setupConnections()
     connect(home_,SIGNAL(pressed()),this,SLOT(onHome()));
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
+    connect(zoomMas_,SIGNAL(pressed()), this, SLOT(ampliar()));
+    connect(zoomMenos_,SIGNAL(pressed()), this, SLOT(reducir()));
+    connect(zoomOriginal_,SIGNAL(pressed()), this, SLOT(original()));
+
 }
+
+void WebBrowser::ampliar () {
+    web_->setZoomFactor( web_->zoomFactor() + 0.2);
+}
+
+void WebBrowser::reducir () {
+    web_->setZoomFactor( web_->zoomFactor() - 0.2);
+}
+
+void WebBrowser::original () {
+    web_->setZoomFactor(1);
+}
+
 
 void WebBrowser::onLoad()
 {
@@ -101,12 +138,3 @@ void WebBrowser::setHistorial () {
     fileHistorial.close();
 }
 
-
-
-// REVISAR --- NO FUNCIONA
-void WebBrowser::wheelEvent ( QWheelEvent * event ) {
-   x += event->delta()/120;
-   qDebug("%d", x);
-   web_->setZoomFactor(1+(qreal(x)/10));
-
- }

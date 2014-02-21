@@ -6,5 +6,8 @@
         <file>resources/cancel.png</file>
         <file>resources/go-home.png</file>
         <file>resources/add.png</file>
+        <file>resources/zoom-in.png</file>
+        <file>resources/zoom-out.png</file>
+        <file>resources/zoom-original.png</file>
     </qresource>
 </RCC>
