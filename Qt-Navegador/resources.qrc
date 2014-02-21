@@ -5,5 +5,10 @@
         <file>resources/refresh.png</file>
         <file>resources/cancel.png</file>
         <file>resources/go-home.png</file>
+        <file>resources/favorito.png</file>
+        <file>resources/nueva_ventana.png</file>
+        <file>resources/ampliar_zoom.png</file>
+        <file>resources/cerrar_marcadores.png</file>
+        <file>resources/reducir_zoom.png</file>
     </qresource>
 </RCC>
