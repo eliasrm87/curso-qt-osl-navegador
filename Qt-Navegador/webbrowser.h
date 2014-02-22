@@ -6,11 +6,23 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QLineEdit>
+#include <QSettings>
+#include <QFile>
+#include <QTextStream>
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
+    QString getAddress();
+    void setAddress(QString url);
+    void setHomeAddress(QString url);
+    void loadSettings();
+    void saveSettings(QString data);
+    void GoHome();
+    void GuardarPaginaEnHistorial(QString url);
 
 private:
     QWebView *web_;
@@ -21,6 +33,7 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+    QSettings settings_; // Configuraciones
 private:
     void setupConnections();
 signals:

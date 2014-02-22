@@ -1,8 +1,10 @@
 #include "webbrowser.h"
+#include "mainwindow.h"
 
 WebBrowser::WebBrowser(QWidget *parent) :
     QWidget(parent)
 {
+
     web_ = new QWebView;
     address_ = new QLineEdit;
     refresh_ = new QToolButton;
@@ -20,9 +22,9 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
-    address_->setText(homepage_);
-    web_->load(homepage_);
+//    homepage_="http://duckduckgo.com";
+//    address_->setText(homepage_);
+//    web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
 }
@@ -44,6 +46,9 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else{
+        web_->load(address_->text());
+    }
 }
 
 void WebBrowser::onHome()
@@ -53,6 +58,8 @@ void WebBrowser::onHome()
 
 void WebBrowser::onUrlChange(QUrl url)
 {
+    // Añadir aqui fichero historial
+    GuardarPaginaEnHistorial(url.toString());
     address_->setText(url.toString());
 }
 
@@ -64,3 +71,47 @@ void WebBrowser::onLoadFinished(bool ok)
 
 }
 
+QString WebBrowser::getAddress(){
+    return address_->text();
+}
+
+void WebBrowser::setAddress(QString url){
+    address_->setText(url);
+    onLoad();
+}
+
+
+void WebBrowser::setHomeAddress(QString url){
+    this->homepage_ = url;
+    this->saveSettings(url);
+}
+
+void WebBrowser::loadSettings(){
+
+    homepage_ = settings_.value("homepage").toString();
+
+}
+
+void WebBrowser::saveSettings(QString data){
+
+    settings_.setValue("homepage", data);
+
+}
+
+void WebBrowser::GoHome(){
+    address_->setText(homepage_);
+    web_->load(homepage_);
+}
+
+
+void WebBrowser::GuardarPaginaEnHistorial(QString url){
+
+    QFile file("historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+    out << url << endl;
+
+    /* Close the file */
+    file.close();
+}
