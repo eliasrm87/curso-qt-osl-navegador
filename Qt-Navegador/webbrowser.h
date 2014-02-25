@@ -9,7 +9,6 @@
 #include <QAction>
 #include <QSettings>
 #include <QFile>
-//#include "mainwindow.h"
 
 class WebBrowser : public QWidget
 {

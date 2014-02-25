@@ -109,3 +109,5 @@ void WebBrowser::addUrlToHistory(QUrl url)
 
 
 
+
+

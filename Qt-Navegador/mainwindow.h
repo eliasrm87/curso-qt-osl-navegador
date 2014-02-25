@@ -17,8 +17,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 private:
     WebBrowser *browser_;
+
     // Barra de menu
     QMenuBar* mainMenu_;
     QMenu* mnuArchivo_;
@@ -34,6 +36,9 @@ private:
     QAction* actAddBookmark_;
     QAction* actSetHomepage_;
 
+    // Historial
+    QAction* actDeleteHistory_;
+
 private:
     void readBookmarkFile();
 
@@ -41,6 +46,7 @@ public slots:
     void addMarcador();
     void PulsarMarcador();
     void showHistory();
+    void deleteHistory();
 };
 
 #endif // MAINWINDOW_H

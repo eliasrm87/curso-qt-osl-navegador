@@ -36,10 +36,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     mnuHistorial_ = new QMenu(tr("&Historial"), this);
     mainMenu_ -> addMenu(mnuHistorial_);
+    actDeleteHistory_ = new QAction(tr("&Borrar el historial"), this);
+    actDeleteHistory_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_D));
+    mnuHistorial_->addAction(actDeleteHistory_);
+    connect(actDeleteHistory_,  SIGNAL(triggered()), this, SLOT(deleteHistory()));
+
     showHistory();
 
-    mnuAyuda_ = new QMenu(tr("&Ayuda"), this);
-    //mainMenu_ -> addMenu(mnuAyuda_);
 
     readBookmarkFile();
     for (int i = 0; i < bookmarkList.size(); ++i) {
@@ -93,8 +96,7 @@ void MainWindow::PulsarMarcador() {
 }
 
 
-void MainWindow::showHistory(){
-
+void MainWindow::showHistory() {
     QFile file("./../historial.txt");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", file.errorString());
@@ -108,4 +110,10 @@ void MainWindow::showHistory(){
         }
         file.close();
     }
+}
+
+void MainWindow::deleteHistory() {
+    QFile file("./../historial.txt");
+    file.open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
+    file.close();
 }
