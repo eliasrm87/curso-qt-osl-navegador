@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QMessageBox>
+#include <QTextEdit>
 
 #include "webbrowser.h"
 

@@ -6,7 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
     browser_ = new WebBrowser;
     browser_->loadSettings();
     browser_->GoHome();
-    setCentralWidget(browser_);
+    //setCentralWidget(browser_);
+    // PESTAÑAS
+    QTabWidget *tabWidgetMainWindow = new QTabWidget(this);
+    tabWidgetMainWindow->setMinimumSize(800,600);
+    tabWidgetMainWindow->addTab(browser_, "Pestaña 1");
+    tabWidgetMainWindow->addTab(new WebBrowser, "Pestaña 2");
+    tabWidgetMainWindow->setCurrentIndex(1);
+    tabWidgetMainWindow->show();
+    setCentralWidget(tabWidgetMainWindow);
+
     zoomVar = 1;
 
     // inicializamos los menus

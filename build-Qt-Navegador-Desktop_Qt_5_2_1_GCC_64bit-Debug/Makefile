@@ -467,11 +467,11 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../Qt-Navegador/resources.qrc \
-		../Qt-Navegador/resources/go-home.png \
 		../Qt-Navegador/resources/cancel.png \
-		../Qt-Navegador/resources/go-next.png \
+		../Qt-Navegador/resources/refresh.png \
+		../Qt-Navegador/resources/go-home.png \
 		../Qt-Navegador/resources/go-previous.png \
-		../Qt-Navegador/resources/refresh.png
+		../Qt-Navegador/resources/go-next.png
 	/home/yeray/Qt/5.2.1/gcc_64/bin/rcc -name resources ../Qt-Navegador/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_webbrowser.cpp
@@ -789,6 +789,7 @@ moc_webbrowser.cpp: ../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
 		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QFile \
 		../Qt-Navegador/webbrowser.h
 	/home/yeray/Qt/5.2.1/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/webbrowser.h -o moc_webbrowser.cpp
 
@@ -1289,7 +1290,8 @@ webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
-		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QFile
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o webbrowser.o ../Qt-Navegador/webbrowser.cpp
 
 qrc_resources.o: qrc_resources.cpp 
