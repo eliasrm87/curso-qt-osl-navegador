@@ -16,6 +16,9 @@ WebBrowser::WebBrowser(QWidget *parent) :
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
 
+    anadirMarcador_->setText(tr("Marc.")); //"Marc." significa Marcador.
+    anadirMarcador_->setToolTip(tr("Añadir Marcador"));
+
     //El layout permite colocar cada control donde queramos y se redimensionarán
     // cuando se cambie el tamaño de la ventana.
 
