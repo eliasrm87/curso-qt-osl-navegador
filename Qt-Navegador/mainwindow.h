@@ -39,6 +39,11 @@ private:
     // Historial
     QAction* actDeleteHistory_;
 
+    // Zoom
+    QAction* actPlusZoom;
+    QAction* actMinusZoom_;
+    double zoomVar;
+
 private:
     void readBookmarkFile();
 
@@ -47,6 +52,8 @@ public slots:
     void PulsarMarcador();
     void showHistory();
     void deleteHistory();
+    void setPlusZoom();
+    void setMinusZoom();
 };
 
 #endif // MAINWINDOW_H

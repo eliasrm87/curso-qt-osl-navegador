@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     browser_->loadSettings();
     browser_->GoHome();
     setCentralWidget(browser_);
+    zoomVar = 1;
 
     // inicializamos los menus
     mainMenu_ = new QMenuBar(this);
@@ -19,7 +20,17 @@ MainWindow::MainWindow(QWidget *parent)
     //mainMenu_ -> addMenu(mnuEditar_);
 
     mnuVer_ = new QMenu(tr("&Ver"), this);
-    //mainMenu_ -> addMenu(mnuVer_);
+    mainMenu_ -> addMenu(mnuVer_);
+    actPlusZoom = new QAction(tr("&Aumentar zoom"), this);
+    actPlusZoom -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Plus));
+    mnuVer_->addAction(actPlusZoom);
+    connect(actPlusZoom, SIGNAL(triggered()), this, SLOT(setPlusZoom()));
+
+    actMinusZoom_ = new QAction(tr("&Disminuir zoom"), this);
+    actMinusZoom_ -> setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Minus));
+    mnuVer_->addAction(actMinusZoom_);
+    connect(actMinusZoom_, SIGNAL(triggered()), this, SLOT(setMinusZoom()));
+
 
     mnuMarcadores_ = new QMenu(tr("&Marcadores"), this);
     mainMenu_ -> addMenu(mnuMarcadores_);
@@ -42,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(actDeleteHistory_,  SIGNAL(triggered()), this, SLOT(deleteHistory()));
 
     showHistory();
-
 
     readBookmarkFile();
     for (int i = 0; i < bookmarkList.size(); ++i) {
@@ -116,4 +126,14 @@ void MainWindow::deleteHistory() {
     QFile file("./../historial.txt");
     file.open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
     file.close();
+}
+
+void MainWindow::setPlusZoom() {
+    zoomVar++;
+    browser_->web_->setZoomFactor(zoomVar);
+}
+
+void MainWindow::setMinusZoom() {
+    zoomVar--;
+    browser_->web_->setZoomFactor(zoomVar);
 }

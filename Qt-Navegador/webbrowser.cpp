@@ -20,9 +20,6 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    //homepage_="http://duckduckgo.com";
-    //address_->setText(homepage_);
-    //web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
 }
