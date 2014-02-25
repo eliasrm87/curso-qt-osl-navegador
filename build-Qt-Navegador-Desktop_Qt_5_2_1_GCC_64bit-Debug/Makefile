@@ -467,11 +467,11 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../Qt-Navegador/resources.qrc \
-		../Qt-Navegador/resources/refresh.png \
 		../Qt-Navegador/resources/go-home.png \
-		../Qt-Navegador/resources/go-previous.png \
 		../Qt-Navegador/resources/cancel.png \
-		../Qt-Navegador/resources/go-next.png
+		../Qt-Navegador/resources/go-next.png \
+		../Qt-Navegador/resources/go-previous.png \
+		../Qt-Navegador/resources/refresh.png
 	/home/yeray/Qt/5.2.1/gcc_64/bin/rcc -name resources ../Qt-Navegador/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_webbrowser.cpp
@@ -588,6 +588,17 @@ moc_mainwindow.cpp: ../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenu \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenuBar \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QStringList \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QFile \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt-Navegador/webbrowser.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qgridlayout.h \
@@ -624,6 +635,9 @@ moc_mainwindow.cpp: ../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtoolbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h \
 		../Qt-Navegador/mainwindow.h
 	/home/yeray/Qt/5.2.1/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/mainwindow.h -o moc_mainwindow.cpp
 
@@ -770,6 +784,11 @@ moc_webbrowser.cpp: ../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtoolbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h \
 		../Qt-Navegador/webbrowser.h
 	/home/yeray/Qt/5.2.1/gcc_64/bin/moc $(DEFINES) $(INCPATH) ../Qt-Navegador/webbrowser.h -o moc_webbrowser.cpp
 
@@ -899,6 +918,17 @@ main.o: ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenu \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenuBar \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QStringList \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QFile \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt-Navegador/webbrowser.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qgridlayout.h \
@@ -935,6 +965,9 @@ main.o: ../Qt-Navegador/main.cpp ../Qt-Navegador/mainwindow.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtoolbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1056,6 +1089,17 @@ mainwindow.o: ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/mainwindow.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenu \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMenuBar \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QStringList \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QFile \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qdialog.h \
 		../Qt-Navegador/webbrowser.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qgridlayout.h \
@@ -1091,7 +1135,10 @@ mainwindow.o: ../Qt-Navegador/mainwindow.cpp ../Qt-Navegador/mainwindow.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QToolButton \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtoolbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Qt-Navegador/mainwindow.cpp
 
 webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
@@ -1237,7 +1284,12 @@ webbrowser.o: ../Qt-Navegador/webbrowser.cpp ../Qt-Navegador/webbrowser.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QToolButton \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qtoolbutton.h \
 		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/QSettings \
+		../../../../Qt/5.2.1/gcc_64/include/QtCore/qsettings.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o webbrowser.o ../Qt-Navegador/webbrowser.cpp
 
 qrc_resources.o: qrc_resources.cpp 

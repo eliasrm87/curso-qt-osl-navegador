@@ -21,9 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
     mnuVer_ = new QMenu(tr("&Ver"), this);
     //mainMenu_ -> addMenu(mnuVer_);
 
-    mnuHistorial_ = new QMenu(tr("&Historial"), this);
-    //mainMenu_ -> addMenu(mnuHistorial_);
-
     mnuMarcadores_ = new QMenu(tr("&Marcadores"), this);
     mainMenu_ -> addMenu(mnuMarcadores_);
     actAddBookmark_ = new QAction(tr("&Añadir a marcadores"), this);
@@ -37,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
     mnuHerramientas_->addAction(actSetHomepage_);
     connect(actSetHomepage_, SIGNAL(triggered()), browser_, SLOT(setHomepage()));
 
+    mnuHistorial_ = new QMenu(tr("&Historial"), this);
+    mainMenu_ -> addMenu(mnuHistorial_);
+    showHistory();
 
     mnuAyuda_ = new QMenu(tr("&Ayuda"), this);
     //mainMenu_ -> addMenu(mnuAyuda_);
@@ -92,6 +92,20 @@ void MainWindow::PulsarMarcador() {
     browser_ -> setAddress(act->text());
 }
 
-//void WebBrowser::setHome() {
-//    browser_ -> setHomepage();
-//}
+
+void MainWindow::showHistory(){
+
+    QFile file("./../historial.txt");
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "error", file.errorString());
+    } else {
+        QTextStream in(&file);
+        while(!in.atEnd()) {
+            QString line = in.readLine();
+            QAction* tmp = new QAction(line, this);
+            mnuHistorial_->addAction(tmp);
+            connect(tmp,SIGNAL(triggered()),this,SLOT(PulsarMarcador()));
+        }
+        file.close();
+    }
+}

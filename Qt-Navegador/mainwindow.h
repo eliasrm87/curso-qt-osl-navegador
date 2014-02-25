@@ -40,7 +40,7 @@ private:
 public slots:
     void addMarcador();
     void PulsarMarcador();
-
+    void showHistory();
 };
 
 #endif // MAINWINDOW_H

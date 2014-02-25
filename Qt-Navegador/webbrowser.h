@@ -8,6 +8,8 @@
 #include <QWidget>
 #include <QAction>
 #include <QSettings>
+#include <QFile>
+//#include "mainwindow.h"
 
 class WebBrowser : public QWidget
 {
@@ -16,7 +18,9 @@ public:
     explicit WebBrowser(QWidget *parent = 0);
 
 public:
-    QWebView *web_;
+    QWebView*   web_;
+    QUrl        urlHistory;
+
 private:
     QLineEdit *address_;
     QToolButton *refresh_;
@@ -47,8 +51,8 @@ public:
     void loadSettings();
     void saveSettings(QString data);
     void GoHome();
-
-
+    void addUrlToHistory(QUrl url);
+    void addHistoryDinamically(QUrl url);
 };
 
 #endif // WEBBROWSER_H

@@ -46,6 +46,7 @@ void WebBrowser::onLoad()
         web_->load("http://"+address_->text());
     else
         web_->load(address_->text());
+
 }
 
 void WebBrowser::onHome()
@@ -56,14 +57,15 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
+    // añadir a historial
+    addUrlToHistory(url);
+    //showHistory();
 }
 
 void WebBrowser::onLoadFinished(bool ok)
 {
     if(!ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
-
-
 }
 
 void WebBrowser::setAddress(QString url) {
@@ -92,3 +94,18 @@ void WebBrowser::GoHome(){
     address_->setText(homepage_);
     web_-> load(homepage_);
 }
+
+void WebBrowser::addUrlToHistory(QUrl url)
+{
+    QFile file("./../historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+    out << url.toString() << endl;
+
+    file.close();
+}
+
+
+
+
