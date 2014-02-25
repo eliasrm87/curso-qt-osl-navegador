@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     tabWidgetMainWindow->show();
     setCentralWidget(tabWidgetMainWindow);
 
-    zoomVar = 1;
+    zoomVar = 1;    // inicialización del zoom
 
     // inicializamos los menus
     mainMenu_ = new QMenuBar(this);
