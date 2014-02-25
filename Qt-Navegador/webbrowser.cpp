@@ -20,9 +20,6 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
-    address_->setText(homepage_);
-    web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
 }
@@ -44,6 +41,9 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
+
 }
 
 void WebBrowser::onHome()
@@ -54,13 +54,57 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
+    // añadir a historial
+    addUrlToHistory(url);
+    //showHistory();
 }
 
 void WebBrowser::onLoadFinished(bool ok)
 {
     if(!ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
-
-
 }
+
+void WebBrowser::setAddress(QString url) {
+    address_->setText(url);
+    onLoad();
+}
+
+QString WebBrowser::getAddress() {
+    return address_->text();
+}
+
+void WebBrowser::setHomepage() {
+    homepage_ = getAddress();
+    this->saveSettings(getAddress());
+}
+
+void WebBrowser::loadSettings() {
+    homepage_ = settings_.value("homepage").toString();
+}
+
+void WebBrowser::saveSettings(QString data) {
+    settings_.setValue("homepage", data);
+}
+
+void WebBrowser::GoHome(){
+    address_->setText(homepage_);
+    web_-> load(homepage_);
+}
+
+void WebBrowser::addUrlToHistory(QUrl url)
+{
+    QFile file("./../historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+    out << url.toString() << endl;
+
+    file.close();
+}
+
+
+
+
+
 
