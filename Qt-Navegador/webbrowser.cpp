@@ -20,11 +20,35 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
+
+    CargarPaginaInicio();
     address_->setText(homepage_);
     web_->load(homepage_);
+
     setLayout(layout_);
     setupConnections();
+
+}
+
+void WebBrowser::CargarPaginaInicio(){
+    QFile file("Inicio.txt");
+
+    if (!file.open(QIODevice::ReadOnly)){
+        homepage_="http://duckduckgo.com";
+    }
+    else{
+        file.open(QIODevice::ReadOnly);
+
+        QTextStream in(&file);
+
+        QString line = in.readLine();
+
+        homepage_= line;
+
+
+    }
+
+ file.close();
 }
 
 void WebBrowser::setupConnections()
@@ -44,6 +68,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text()); //Si añadimos la pagina de forma correcta
 }
 
 void WebBrowser::onHome()
@@ -54,6 +80,7 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
+    AddHistorial();//Añadir para guardar en fichero historial
 }
 
 void WebBrowser::onLoadFinished(bool ok)
@@ -63,4 +90,38 @@ void WebBrowser::onLoadFinished(bool ok)
 
 
 }
+QString WebBrowser::getAddress(){
+    return address_->text();
+}
+void WebBrowser::setAddress(QString linea){
+    address_->setText(linea);
+    onLoad();
+}
 
+void WebBrowser::setHomePage(){
+    homepage_=address_->text();
+    QFile archivo ("Inicio.txt");
+
+    archivo.open(QFile::WriteOnly|QFile::Truncate);
+
+    QTextStream out(&archivo);
+
+    QString linea = address_->text();
+
+    out << linea << endl;
+
+    archivo.close();
+}
+
+void WebBrowser::AddHistorial()
+{
+    QFile file("historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+
+    QString linea = getAddress();
+
+    out << linea << endl;//Escribimos
+    file.close();
+}

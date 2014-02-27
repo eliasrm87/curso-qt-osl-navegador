@@ -6,4 +6,7 @@
         <file>resources/cancel.png</file>
         <file>resources/go-home.png</file>
     </qresource>
+    <qresource prefix="/files">
+        <file>resources/marcadores.txt</file>
+    </qresource>
 </RCC>
