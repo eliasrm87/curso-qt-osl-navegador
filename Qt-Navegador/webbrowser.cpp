@@ -80,7 +80,7 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
-    //Añadir para guardar en fichero historial
+    AddHistorial();//Añadir para guardar en fichero historial
 }
 
 void WebBrowser::onLoadFinished(bool ok)
@@ -100,16 +100,28 @@ void WebBrowser::setAddress(QString linea){
 
 void WebBrowser::setHomePage(){
     homepage_=address_->text();
-    QFile archivo;
-    archivo.setFileName("Inicio.txt");
+    QFile archivo ("Inicio.txt");
 
-    if (archivo.open(QFile::WriteOnly|QFile::Truncate)){
+    archivo.open(QFile::WriteOnly|QFile::Truncate);
 
-        QTextStream out(&archivo);
+    QTextStream out(&archivo);
 
-        QString linea = address_->text();
+    QString linea = address_->text();
 
-        out << linea << endl;
-    }
-        archivo.close();
+    out << linea << endl;
+
+    archivo.close();
+}
+
+void WebBrowser::AddHistorial()
+{
+    QFile file("historial.txt");
+    file.open(QIODevice::Append);
+
+    QTextStream out(&file);
+
+    QString linea = getAddress();
+
+    out << linea << endl;//Escribimos
+    file.close();
 }

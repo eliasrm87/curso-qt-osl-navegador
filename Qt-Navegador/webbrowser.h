@@ -38,6 +38,7 @@ public:
     QString getAddress();
     void setAddress(QString linea);
     void setHomePage();
+    void AddHistorial();
 };
 
 #endif // WEBBROWSER_H

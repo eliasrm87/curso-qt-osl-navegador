@@ -17,6 +17,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void VerMarcadores();
+    void VerHistorial();
+
 
 private:
     WebBrowser *browser_;
@@ -30,6 +32,9 @@ private:
      QAction* actAddMarcadores_;
      QAction* actVerMarcadores_;
      QAction* actCambiarInicio_;
+     QAction* actAddHistorial_;
+     QAction* actVerHistorial_;
+     QAction* actBorrarHistorial_;
 
      QString txtAdress;
 
@@ -38,6 +43,7 @@ public slots:
      void AddMarcadores();
      void PulsarMarcador();
      void CambiarInicio();
+     void BorrarHistorial();
 };
 
 #endif // MAINWINDOW_H
