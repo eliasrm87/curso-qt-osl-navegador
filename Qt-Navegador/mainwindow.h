@@ -7,7 +7,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-
+//hola
 private slots:
     void Salir();
 
