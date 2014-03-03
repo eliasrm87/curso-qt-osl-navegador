@@ -71,3 +71,9 @@ QString WebBrowser::getAddress()
     return address_->text();
 }
 
+void WebBrowser::setAddress(QString address)
+{
+    address_->setText(address);
+    onLoad();
+}
+
