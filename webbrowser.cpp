@@ -30,9 +30,15 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    setLayout(layout_);
 
+    listBookmarks_ = new QListWidget;
+    layout_->addWidget(listBookmarks_,1,10,2,2);
+    listBookmarks_->setVisible(true);
+
+    setLayout(layout_);
     setupConnections();
+    show();
+    onBookmarks();
 }
 
 void WebBrowser::setupConnections()
@@ -52,6 +58,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
 }
 
 void WebBrowser::onHome()
@@ -70,5 +78,35 @@ void WebBrowser::onLoadFinished(bool ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
 
 
+}
+
+void WebBrowser::onBookmarks()
+{
+    listBookmarks_->clear();
+    listBookmarks_->setVisible(true);
+
+    QFile fileBookmarks("/Users/kevinrobayna/Workstation/tmp/qt-browser/bookmarks");
+    fileBookmarks.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QTextStream in(&fileBookmarks);
+
+    while(!in.atEnd())
+    {
+        QString line = in.readLine();
+
+        listBookmarks_->addItem(new QListWidgetItem(line));
+
+        connect(listBookmarks_,
+                SIGNAL( itemClicked ( QListWidgetItem * ) ),
+                this,
+                SLOT(loadBookmark( QListWidgetItem * ) ) );
+    }
+    fileBookmarks.close();
+}
+
+void WebBrowser::loadBookmark(QListWidgetItem *item)
+{
+    address_->setText(item->text());
+     onLoad();
 }
 

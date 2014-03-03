@@ -38,6 +38,10 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+
+    QListWidget *listBookmarks_;
+    QTextStream *textBookmarks_;
+
 private:
     void setupConnections();
 signals:
@@ -48,6 +52,12 @@ public slots:
     void onUrlChange(QUrl url);
 
     void onLoadFinished(bool ok);
+
+
+    void onBookmarks ();
+    void loadBookmark(QListWidgetItem *item);
+
+
 };
 
 #endif // WEBBROWSER_H

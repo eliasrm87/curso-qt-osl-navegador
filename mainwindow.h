@@ -12,6 +12,17 @@ public:
     ~MainWindow();
 private:
     WebBrowser *browser_;
+
+    QMenuBar *mainMenu_;
+
+    QMenu *menuBrowser_;
+    QAction *actionExit_;
+
+    QMenu *menuBookmark_;
+    QAction *actionAddBookmark_;
+
+    QMenu *menuHomepage_;
+    QAction *actionSetHomepage_;
 };
 
 #endif // MAINWINDOW_H
