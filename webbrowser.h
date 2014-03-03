@@ -6,6 +6,23 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+
+#include <QTextStream>
+#include <QFile>
+#include <QMessageBox>
+#include <QMenu>
+#include <QList>
+#include <QAction>
+#include <QMenuBar>
+#include <QListWidget>
+
+#include <QQuickView>
+
+#include <QTabWidget>
+
+#include <QWebPage>
+#include <QPushButton>
+#include <QBoxLayout>
 class WebBrowser : public QWidget
 {
     Q_OBJECT

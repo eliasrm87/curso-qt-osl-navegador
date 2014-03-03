@@ -4,26 +4,34 @@ WebBrowser::WebBrowser(QWidget *parent) :
     QWidget(parent)
 {
     web_ = new QWebView;
+
     address_ = new QLineEdit;
-    refresh_ = new QToolButton;
-    back_ = new QToolButton;
-    forward_ = new QToolButton;
+    address_->setText(homepage_);
+
     home_ = new QToolButton;
-    layout_ = new QGridLayout;
+    homepage_="http://duckduckgo.com";
+    web_->load(homepage_);
+
+    refresh_ = new QToolButton;
     refresh_->setIcon(QIcon(QPixmap(":/icons/resources/refresh.png")));
+
+    back_ = new QToolButton;
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
+
+    forward_ = new QToolButton;
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
+
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
+
+    layout_ = new QGridLayout;
     layout_->addWidget(back_,0,0,1,1);
     layout_->addWidget(forward_,0,1,1,1);
     layout_->addWidget(home_,0,2,1,1);
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
     layout_->addWidget(web_,1,0,1,5);
-    homepage_="http://duckduckgo.com";
-    address_->setText(homepage_);
-    web_->load(homepage_);
     setLayout(layout_);
+
     setupConnections();
 }
 

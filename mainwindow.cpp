@@ -5,7 +5,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     browser_ = new WebBrowser;
     setCentralWidget(browser_);
-
 }
 
 MainWindow::~MainWindow()
