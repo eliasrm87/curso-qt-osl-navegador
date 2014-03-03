@@ -66,3 +66,8 @@ void WebBrowser::onLoadFinished(bool ok)
 
 }
 
+QString WebBrowser::getAddress()
+{
+    return address_->text();
+}
+

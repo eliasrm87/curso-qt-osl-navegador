@@ -29,8 +29,10 @@ public slots:
     void onLoad();
     void onHome();
     void onUrlChange(QUrl url);
-
     void onLoadFinished(bool ok);
+
+    // Getter para la URL
+    QString getAddress();
 };
 
 #endif // WEBBROWSER_H
