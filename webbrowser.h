@@ -28,6 +28,7 @@ class WebBrowser : public QWidget
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
+    ~WebBrowser ();
 
 private:
     QWebView *web_;
@@ -44,7 +45,7 @@ private:
 
 private:
     void setupConnections();
-signals:
+    void saveBookmarks();
 
 public slots:
     void onLoad();
@@ -52,7 +53,6 @@ public slots:
     void onUrlChange(QUrl url);
 
     void onLoadFinished(bool ok);
-
 
     void onBookmarks ();
     void loadBookmark(QListWidgetItem *item);

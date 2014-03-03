@@ -41,6 +41,11 @@ WebBrowser::WebBrowser(QWidget *parent) :
     onBookmarks();
 }
 
+WebBrowser::~WebBrowser()
+{
+    this->saveBookmarks();
+}
+
 void WebBrowser::setupConnections()
 {
     connect(address_,SIGNAL(returnPressed()),this,SLOT(onLoad()));
@@ -50,6 +55,18 @@ void WebBrowser::setupConnections()
     connect(home_,SIGNAL(pressed()),this,SLOT(onHome()));
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
+}
+
+void WebBrowser::saveBookmarks()
+{
+    QFile fileBookmarks("/Users/kevinrobayna/Workstation/tmp/qt-browser/bookmarks");
+    fileBookmarks.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text);
+
+    QTextStream out(&fileBookmarks);
+
+    for (int i = 0; i < listBookmarks_->count(); i++) {
+        out<<((this->listBookmarks_->item(i))->text()+"/n");
+    }
 }
 
 void WebBrowser::onLoad()
@@ -76,8 +93,6 @@ void WebBrowser::onLoadFinished(bool ok)
 {
     if(!ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
-
-
 }
 
 void WebBrowser::onBookmarks()
