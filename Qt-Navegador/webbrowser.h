@@ -34,6 +34,10 @@ public slots:
     // Getter y Setter para la URL
     QString getAddress();
     void setAddress(QString address);
+
+    // Getter y Setter para la Homepage
+    QString getHomepage();
+    void setHomepage(QString homepage);
 };
 
 #endif // WEBBROWSER_H

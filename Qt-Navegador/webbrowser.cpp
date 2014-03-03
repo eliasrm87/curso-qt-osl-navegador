@@ -77,3 +77,13 @@ void WebBrowser::setAddress(QString address)
     onLoad();
 }
 
+QString WebBrowser::getHomepage()
+{
+    return homepage_;
+}
+
+void WebBrowser::setHomepage(QString homepage)
+{
+    homepage_ = homepage;
+}
+
