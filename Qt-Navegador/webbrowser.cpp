@@ -44,6 +44,8 @@ void WebBrowser::onLoad()
             && !address_->text().startsWith("https://")
             && address_->text().length()!=0)
         web_->load("http://"+address_->text());
+    else
+        web_->load(address_->text());
 }
 
 void WebBrowser::onHome()
