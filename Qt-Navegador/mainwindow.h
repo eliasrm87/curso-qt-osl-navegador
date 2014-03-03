@@ -16,6 +16,8 @@ public:
 
 private slots:
     void alSalir();
+    void alMarcador();
+    void irMarcador();
 
 private:
     WebBrowser *browser_;
@@ -25,9 +27,12 @@ private:
 
     // Elementos del menú
     QMenu *mnuNavegador_;
+    QMenu *mnuMarcadores_;
+    QMenu *mnuMarcadoresVer_;
 
     // Acciones del menú
     QAction *actNavegadorSalir_;
+    QAction *actMarcadoresAgregar_;
 
 };
 
