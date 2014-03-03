@@ -15,14 +15,15 @@ private:
 
     QMenuBar *mainMenu_;
 
-    QMenu *menuBrowser_;
-    QAction *actionExit_;
-
     QMenu *menuBookmark_;
     QAction *actionAddBookmark_;
 
     QMenu *menuHomepage_;
     QAction *actionSetHomepage_;
+
+private slots:
+    void addBookmark();
+    void setAsHomepage();
 };
 
 #endif // MAINWINDOW_H

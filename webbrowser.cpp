@@ -107,6 +107,21 @@ void WebBrowser::onBookmarks()
 void WebBrowser::loadBookmark(QListWidgetItem *item)
 {
     address_->setText(item->text());
-     onLoad();
+    onLoad();
+}
+
+void WebBrowser::setHomepage()
+{
+    this->homepage_= this->address_->text();
+}
+
+void WebBrowser::addBookmark()
+{
+    listBookmarks_->addItem(new QListWidgetItem(address_->text()));
+
+    connect(listBookmarks_,
+            SIGNAL( itemClicked ( QListWidgetItem * ) ),
+            this,
+            SLOT(loadBookmark( QListWidgetItem * ) ) );
 }
 

@@ -57,6 +57,10 @@ public slots:
     void onBookmarks ();
     void loadBookmark(QListWidgetItem *item);
 
+public:
+    void setHomepage();
+    void addBookmark();
+
 
 };
 
