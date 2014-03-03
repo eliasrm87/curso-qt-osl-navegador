@@ -65,7 +65,7 @@ void WebBrowser::saveBookmarks()
     QTextStream out(&fileBookmarks);
 
     for (int i = 0; i < listBookmarks_->count(); i++) {
-        out<<((this->listBookmarks_->item(i))->text()+"/n");
+        out<<((this->listBookmarks_->item(i))->text()+"\n");
     }
 }
 
