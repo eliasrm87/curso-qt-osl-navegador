@@ -1,67 +1,15 @@
-Curso de QT - OSL
-====
+# Curso de QT - OSL
+David Hernández Bethencourt
 
-Segundo proyecto - Navegador Web
-----
+## Segundo proyecto - Navegador Web
+Empleando Qt5 y su IDE Qt Creator se ha desarrollado un navegador web a partir de lo aprendido desarrollando el bloc de notas.
 
-Para continuar con lo aprendido desarrollando el bloc de notas vamos a crear nuestro propio 
-navegador web. En esta ocasión aprenderemos como usar los layouts y profundizaremos en el uso del
-sistema de señales y slots.
+### Requisitos mínimos completados
 
-Como mínimo, implementaremos las siguientes funcionalidades:
-
-* Añadir los botones de "Adelante" , "Atrás", "Página por defecto" y "Recargar página".
-* Añadir una barra de direcciones que se actualize cada vez que cambiamos de página al hacer click sobre los enlaces de cada pagina.
-* Comprobar que la dirección introducida sea valida. En caso contrario, introducir la cadena en un motor de busqueda por defecto.
-
-Modus operandi
-----
-
-1. Crear un repositorio git local y sicronizarlo con la cuenta de [GitHub]
-* Inicializar el proyecto en QTCreator
-* Agregar los botones con iconos representativos para cada función.
-* Añadir la barra de direcciones
-* Añadir el QWebView
-* Crear slots y conectar señales
-* Descanso de 15 minutos
-* Realizar las tareas propuestas para la clase
-* Almorzar
-
-Tareas propuestas para realizar en clase
-----
-
-Tras terminar con la implementación guiada del editor propuesto, procederemos a realizar las siguientes tareas:
-
-* Añadir soporte para marcadores.
-* Implementar la funcionalidad para cambiar la página web por defecto.
-* Añadir soporte para ver el historial y modificarlo.
-
-
-Entrega
-----
-
-Todo el trabajo realizado en clase y/o en casa, debe ser subido a [GitHub] y, para que podamos "corregirlo", tendrás que enviarnos el enlace a tu repositorio a [cursos@igeko.es]
-
-Para subir nota, proponemos las siguientes tareas para casa:
-
-* Agregar soporte para pestañas
-* Añadir opciones en menú contextual
-* Implementar Zoom.
-
-*Nota: Se valorará el simple hecho de haberlo intentado, no tiene que ser todo perfecto, lo importante es que aprendas a "buscarte la vida" con la documentación de QT al tiempo que practicas el desarrollo con este framework.* 
-
-Material de referencia
-----
-
-* [Documentación oficial de QT]
-* [GIT - La guía sencilla]
-* [GIT challenges]
-* [GIT Cheat Sheet]
-
-
-[Documentación oficial de QT]:http://qt-project.org/doc/
-[GIT challenges]:http://try.github.io/levels/1/challenges/1
-[GIT Cheat Sheet]:http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf
-[GIT - La guía sencilla]:http://rogerdudler.github.io/git-guide/index.es.html
-[GitHub]:https://github.com
-[cursos@igeko.es]:mailto:cursos@igeko.es
+El navegador consta de:
+    * Botones de "Adelante", "Atrás", "Página por defecto" y "Recargar página"
+    * Una barra de direcciones que se actualiza cada vez que cambiamos de página al hacer click sobre los enlaces de cada página
+    * Una verificación de que la dirección introducida sea válida. En caso contrario, se introducirá la cadena en un motor de búsqueda por defecto 
+    * Soporte para marcadores
+    * Funcionalidad para cambiar la página web por defecto
+    * Soporte para ver el historial y modificarlo (borrarlo)
