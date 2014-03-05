@@ -56,6 +56,9 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
+
+    //Añadimos la url al historial
+    agregarHistorial(url.toString());
 }
 
 void WebBrowser::onLoadFinished(bool ok)
@@ -87,3 +90,18 @@ void WebBrowser::setHomepage(QString homepage)
     homepage_ = homepage;
 }
 
+void WebBrowser::agregarHistorial(QString address)
+{
+    QFile historial("../historial.txt");
+    historial.open(QIODevice::Append);
+
+    QTextStream out(&historial);
+    out << address << endl;
+
+    historial.close();
+}
+
+QWebView *WebBrowser::getWeb()
+{
+    return web_;
+}

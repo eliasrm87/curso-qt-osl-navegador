@@ -21,6 +21,8 @@ private slots:
     void alMarcador();
     void irMarcador();
     void alHomepage();
+    void borrarHistorial();
+    void alHistorial();
 
 private:
     WebBrowser *browser_;
@@ -33,11 +35,14 @@ private:
     QMenu *mnuMarcadores_;
     QMenu *mnuMarcadoresVer_;
     QMenu *mnuHerramientas_;
+    QMenu *mnuHistorial_;
+    QMenu *mnuHistorialVer_;
 
     // Acciones del menú
     QAction *actNavegadorSalir_;
     QAction *actMarcadoresAgregar_;
     QAction *actHerramientasHomepage_;
+    QAction *actHistorialBorrar_;
 };
 
 #endif // MAINWINDOW_H

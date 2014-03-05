@@ -6,6 +6,8 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QFile>
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -21,9 +23,9 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+
 private:
     void setupConnections();
-signals:
 
 public slots:
     void onLoad();
@@ -38,6 +40,10 @@ public slots:
     // Getter y Setter para la Homepage
     QString getHomepage();
     void setHomepage(QString homepage);
+
+public:
+    void agregarHistorial(QString address);
+    QWebView *getWeb();
 };
 
 #endif // WEBBROWSER_H
