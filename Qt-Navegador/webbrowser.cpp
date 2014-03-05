@@ -19,12 +19,23 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(home_,0,2,1,1);
     layout_->addWidget(refresh_,0,3,1,1);
     layout_->addWidget(address_,0,4,1,1);
-    layout_->addWidget(web_,1,0,1,5);
+    layout_->addWidget(web_,1,0,1,7);
     homepage_="http://duckduckgo.com";
     address_->setText(homepage_);
     web_->load(homepage_);
+
+    // Zoom
+    moreZoom_ = new QToolButton;
+    lessZoom_ = new QToolButton;
+    moreZoom_->setIcon(QIcon(":/icons/resources/Zoom_mas.png"));
+    lessZoom_->setIcon(QIcon(":/icons/resources/Zoom_menos.png"));
+    layout_->addWidget(moreZoom_,0,5,1,1);
+    layout_->addWidget(lessZoom_,0,6,1,1);
+
     setLayout(layout_);
     setupConnections();
+
+
 }
 
 void WebBrowser::setupConnections()
@@ -36,6 +47,8 @@ void WebBrowser::setupConnections()
     connect(home_,SIGNAL(pressed()),this,SLOT(onHome()));
     connect(web_,SIGNAL(urlChanged(QUrl)),this,SLOT(onUrlChange(QUrl)));
     connect(web_,SIGNAL(loadFinished(bool)),this,SLOT(onLoadFinished(bool)));
+    connect(moreZoom_,SIGNAL(pressed()), this, SLOT(aumentarZoom()));
+    connect(lessZoom_,SIGNAL(pressed()),this,SLOT(disminuirZoom()));
 }
 
 void WebBrowser::onLoad()
@@ -67,6 +80,16 @@ void WebBrowser::onLoadFinished(bool ok)
         web_->load("https://duckduckgo.com/?q="+address_->text());
 
 
+}
+
+void WebBrowser::aumentarZoom()
+{
+    web_->setZoomFactor(web_->zoomFactor() + 0.1);
+}
+
+void WebBrowser::disminuirZoom()
+{
+    web_->setZoomFactor(web_->zoomFactor() - 0.1);
 }
 
 QString WebBrowser::getAddress()

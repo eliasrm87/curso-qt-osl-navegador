@@ -24,6 +24,10 @@ private:
     QGridLayout *layout_;
     QString homepage_;
 
+    // Botones de zoom
+    QToolButton *moreZoom_;
+    QToolButton *lessZoom_;
+
 private:
     void setupConnections();
 
@@ -32,6 +36,8 @@ public slots:
     void onHome();
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
+    void aumentarZoom();
+    void disminuirZoom();
 
     // Getter y Setter para la URL
     QString getAddress();
