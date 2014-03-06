@@ -13,3 +13,6 @@ El navegador consta de:
 * Soporte para marcadores
 * Funcionalidad para cambiar la página web por defecto
 * Soporte para ver el historial y modificarlo (borrarlo)
+
+### Parte opcional añadida
+* Zoom implementado
