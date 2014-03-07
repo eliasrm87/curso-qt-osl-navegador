@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setOrganizationName("Igeko");
     QCoreApplication::setOrganizationDomain("igeko.es");
-    QCoreApplication::setApplicationName("WebBrowser");
+    QCoreApplication::setApplicationName("Joining");
 
 
     QApplication a(argc, argv);

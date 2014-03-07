@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    webbrowser.cpp
+    webbrowser.cpp \
+    bookmarks.cpp \
+    history.cpp
 
 HEADERS  += mainwindow.h \
-    webbrowser.h
+    webbrowser.h \
+    bookmarks.h \
+    history.h
 
 RESOURCES += \
     resources.qrc

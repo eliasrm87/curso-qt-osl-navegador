@@ -2,10 +2,17 @@
 #define WEBBROWSER_H
 
 #include <QGridLayout>
-#include <QWebView>
-#include <QLineEdit>
-#include <QToolButton>
+#include <QWebView>//Visualizacion de la web en sí misma
+#include <QLineEdit>//Para meter las URL's
+#include <QToolButton>//Facilita el hecho de poner iconos
 #include <QWidget>
+
+#include <QDialog>
+#include <QInputDialog>
+#include <QWebHistory>
+#include "bookmarks.h"
+#include "history.h"
+
 class WebBrowser : public QWidget
 {
     Q_OBJECT
@@ -19,6 +26,11 @@ private:
     QToolButton *back_;
     QToolButton *forward_;
     QToolButton *home_;
+    QDialog* dialog_;
+    QToolButton* bookmarks_;
+    QToolButton* config_;
+    QToolButton* history_;
+    bookmarks* books_;
     QGridLayout *layout_;
     QString homepage_;
 private:
@@ -31,6 +43,11 @@ public slots:
     void onUrlChange(QUrl url);
 
     void onLoadFinished(bool ok);
+
+    void onBooks();
+    void onConfig();
+    void onHistory();
+    void bookChange(QString);
 };
 
 #endif // WEBBROWSER_H
