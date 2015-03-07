@@ -16,8 +16,6 @@ WebBrowser::WebBrowser(QWidget *parent) :
     bookmarks_ = new QToolButton(this);
     layout_ = new QGridLayout(this);
 
-
-
     refresh_->setIcon(QIcon(QPixmap(":/icons/resources/refresh.png")));
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
@@ -26,20 +24,9 @@ WebBrowser::WebBrowser(QWidget *parent) :
     bookmarks_->setText(tr("&Marcadores"));
 
 
-
-//    QDialog* diag_zoom = new QDialog(this);
-//    diag_zoom->setWindowIcon(QIcon(QPixmap(":/icons/resources/main_icon.png")));
-//    QGridLayout* layout = new QGridLayout(this);
-//    QLabel*  label = new QLabel(("Zoom"),this);
-//    QSlider* slZoom = new QSlider((Qt::Orientation::Horizontal),this);
-
-//    slZoom->setRange(0,200);
-//    slZoom->setSliderPosition(100);
-//    layout->addWidget(label, 0,0,1,1);
-//    layout->addWidget(slZoom,1,0,1,1);
-//    diag_zoom->setLayout(layout);
-
-
+    //Configuramos el completador del LineEdit
+    web_Completer = new QCompleter(this);
+    address_->setCompleter(web_Completer);
 
 
     //Configuracion del Layout
@@ -68,9 +55,42 @@ WebBrowser::WebBrowser(QWidget *parent) :
     web_->load(homepage_);
     setLayout(layout_);
     setupConnections();
+    startCompleter();
+}
+
+
+//Al comenzar la ejecucion inciamos el completador
+void WebBrowser :: startCompleter(){
+
+
+    QFile recientes ("./historial.txt");
+
+    //Abrimos el archivo de recientes
+    if (recientes.open(QIODevice::ReadOnly | QIODevice::Text)) {
+
+       QTextStream in(&recientes);
+
+       while (!in.atEnd()) {
+
+           QString archivo = in.readLine();
+
+           if(!completer_list.contains(archivo)) //Evitamos escribir dos veces la misma URL
+            completer_list << archivo;
+        }
+            recientes.close();
+
+            }
+
+    //Establecemos el completador
+    QStringListModel* model = new QStringListModel(completer_list);
+    web_Completer = new QCompleter(model,this);
+
+    address_->setCompleter(web_Completer);
+    address_->installEventFilter(this);
 
 }
 
+//Hacemos las conexiones
 void WebBrowser::setupConnections()
 {
     connect(address_,   SIGNAL(returnPressed()),   this,        SLOT(onLoad()));
@@ -82,23 +102,40 @@ void WebBrowser::setupConnections()
     connect(web_,       SIGNAL(loadFinished(bool)),    this,    SLOT(onLoadFinished(bool)));
     connect(bookmarks_, &QToolButton::pressed, [&](){           emit marcadores(true,address_->text());   });
     connect(dialogo.lnEdit_, SIGNAL(returnPressed()),   this,   SLOT(onChangeHome()));
-//    connect(slZoom,     SIGNAL(valueChanged(int)),      this,   SLOT(onChangeZoom(int)));
+
 
 }
 
+//Cada vez que cargamos una pagina se actualiza el completador
+void WebBrowser :: onReloadCompleter(){
+
+   QStringListModel* model = (QStringListModel*)(web_Completer->model());
+
+   if(!completer_list.contains(address_->text())) //Evitamos escribir dos veces la misma URL
+   completer_list << address_->text();
+   model->setStringList(completer_list);
+   web_Completer->setModel(model);
+}
+
+
+//Cargamos una pagina
 void WebBrowser::onLoad()
 {
     if(!address_->text().startsWith("http://") && !address_->text().startsWith("https://") && address_->text().length()!=0){
         web_->load("http://"+address_->text());
+        //Añadimos al completador
         emit historial(false,"http://"+address_->text());
+        onReloadCompleter();
     }
 
     else{
            web_->load(address_->text());
-            emit historial(false,address_->text());
+           emit historial(false,address_->text());
+           onReloadCompleter();
     }
  }
 
+//Cargamos la pagina principal
 void WebBrowser::onHome()
 {
     address_->setText(homepage_);
@@ -118,7 +155,7 @@ void WebBrowser::onLoadFinished(bool ok)
 
 }
 
-
+//Cambiamos la pagina principal
 void WebBrowser :: onChangeHome(){
 
 
@@ -136,10 +173,4 @@ void WebBrowser :: onChangeHome(){
 }
 
 
-//void WebBrowser :: onChangeZoom(int zoom){
-
-//       web_->setZoomFactor(zoom);
-
-
-//}
 

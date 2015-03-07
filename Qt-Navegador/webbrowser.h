@@ -12,7 +12,9 @@
 #include <QFile>
 #include "home_dialog.hpp"
 #include <QSlider>
-
+#include <QCompleter>
+#include <QStringList>
+#include <QStringListModel>
 class WebBrowser : public QWidget{
 
     Q_OBJECT
@@ -33,22 +35,18 @@ private:
     QGridLayout     *layout_;
     QString          homepage_;
 
-
-//    QGridLayout*    layout;
-//    QLabel*         label;
-//    QSlider*        slZoom;
-
-
-
+    QCompleter*           web_Completer;
+    QStringList     completer_list;
 
 public:
 
-//    QDialog*        diag_zoom;
    home_dialog       dialogo;
 
 private:
 
     void setupConnections();
+    void startCompleter();
+    void onReloadCompleter();
 
 signals:
 
@@ -62,7 +60,7 @@ public slots:
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
     void onChangeHome();
-//    void onChangeZoom(int);
+
 };
 
 #endif // WEBBROWSER_H

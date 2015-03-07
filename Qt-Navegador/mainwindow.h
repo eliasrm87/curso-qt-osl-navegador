@@ -33,9 +33,7 @@ private:
     QMenu*          mnuShowBkMark_;
     QAction*        actRemoveBkMark_;
 
-    QAction*         actZoom_;
-
-    void connections();
+   void connections();
 
 
 public slots:

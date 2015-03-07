@@ -16,11 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     mn_config->addAction(actChangeHome_);
     mn_menu->addMenu(mn_config);
 
-    actZoom_ = new QAction(tr("&Cambiar Zoom"),this);
-    actZoom_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Z));
-    mn_menu->addAction(actZoom_);
-
-
     mnuRecientes_ = new QMenu(tr("&Historial"),this);
     mnuMarcadores_ = new QMenu(tr("&Marcadores"),this);
     actRemoveHistorial_ = new QAction(tr("&Eliminar Historial"),this);
