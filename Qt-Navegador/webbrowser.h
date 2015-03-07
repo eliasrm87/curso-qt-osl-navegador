@@ -13,6 +13,7 @@ class WebBrowser : public QWidget
     Q_OBJECT
 public:
     explicit WebBrowser(QWidget *parent = 0);
+    ~WebBrowser();
 
 private:
     QList<QString> markerList_;
@@ -30,13 +31,8 @@ private:
     QGridLayout* layout_;
     QString homepage_;
 
-protected:
-    void closeEvent(QCloseEvent*);
-
 private:
     void setupConnections();
-    void loadMarkers();
-    void saveMarkers();
 
 public slots:
     void onLoad();
@@ -49,6 +45,8 @@ public slots:
 
 private slots:
     void setMarkers(QList<QString> markers);
+    void loadMarkers();
+    void saveMarkers();
 
 };
 

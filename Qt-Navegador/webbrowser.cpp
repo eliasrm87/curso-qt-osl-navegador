@@ -49,8 +49,8 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     loadMarkers();
 }
 
-void WebBrowser::closeEvent(QCloseEvent*) {
-    saveMarkers();
+WebBrowser::~WebBrowser() {
+  saveMarkers();
 }
 
 void WebBrowser::setupConnections() {
@@ -62,33 +62,6 @@ void WebBrowser::setupConnections() {
     connect(markers_, SIGNAL(triggered()),        this, SLOT(onMarkers()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
-}
-
-void WebBrowser::loadMarkers() {
-    markerList_.clear();
-    QSettings settings("markers.ini", QSettings::IniFormat);
-
-    settings.beginGroup("MarkersData");
-    int size = settings.beginReadArray("markers");
-    for (int i = 0; i < size; ++i) {
-        settings.setArrayIndex(i);
-        markerList_.append(settings.value("marker").toString());
-    }
-    settings.endArray();
-    settings.endGroup();
-}
-
-void WebBrowser::saveMarkers() {
-    QSettings settings("markers.ini", QSettings::IniFormat);
-
-    settings.beginGroup("MarkersData");
-    settings.beginWriteArray("markers");
-    for (int i = 0; i < markerList_.size(); ++i) {
-        settings.setArrayIndex(i);
-        settings.setValue("marker", markerList_.at(i));
-    }
-    settings.endArray();
-    settings.endGroup();
 }
 
 void WebBrowser::onLoad() {
@@ -135,3 +108,29 @@ void WebBrowser::setMarkers(QList<QString> markers) {
     markerList_ = markers;
 }
 
+void WebBrowser::loadMarkers() {
+    markerList_.clear();
+    QSettings settings("markers.ini", QSettings::IniFormat);
+
+    settings.beginGroup("MarkersData");
+    int size = settings.beginReadArray("markers");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        markerList_.append(settings.value("marker").toString());
+    }
+    settings.endArray();
+    settings.endGroup();
+}
+
+void WebBrowser::saveMarkers() {
+    QSettings settings("markers.ini", QSettings::IniFormat);
+
+    settings.beginGroup("MarkersData");
+    settings.beginWriteArray("markers");
+    for (int i = 0; i < markerList_.size(); ++i) {
+        settings.setArrayIndex(i);
+        settings.setValue("marker", markerList_.at(i));
+    }
+    settings.endArray();
+    settings.endGroup();
+}
