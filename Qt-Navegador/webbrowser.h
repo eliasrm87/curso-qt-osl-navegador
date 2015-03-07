@@ -17,6 +17,7 @@ public:
 
 private:
     QList<QString> markerList_;
+    QList<QString> historyList_;
     QWebView* web_;
 
     QToolBar* toolbar_;
@@ -38,6 +39,7 @@ public slots:
     void onLoad();
     void onHome();
     void onMarkers();
+    void onHistory();
 
     void onLoadURL(QString url);
     void onUrlChange(QUrl url);
@@ -47,6 +49,8 @@ private slots:
     void setMarkers(QList<QString> markers);
     void loadMarkers();
     void saveMarkers();
+    void loadHistory();
+    void saveHistory();
 
 };
 

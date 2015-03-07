@@ -1,8 +1,10 @@
 #include "webbrowser.h"
 #include "markerswindow.h"
+#include "historywindow.h"
 
 #include <QWidgetAction>
 #include <QSettings>
+#include <QWebHistory>
 
 WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     web_ = new QWebView(this);
@@ -47,10 +49,12 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
 
     setupConnections();
     loadMarkers();
+    loadHistory();
 }
 
 WebBrowser::~WebBrowser() {
-  saveMarkers();
+    saveMarkers();
+    saveHistory();
 }
 
 void WebBrowser::setupConnections() {
@@ -60,6 +64,7 @@ void WebBrowser::setupConnections() {
     connect(back_,    SIGNAL(triggered()),        web_, SLOT(back()));
     connect(home_,    SIGNAL(triggered()),        this, SLOT(onHome()));
     connect(markers_, SIGNAL(triggered()),        this, SLOT(onMarkers()));
+    connect(history_, SIGNAL(triggered()),        this, SLOT(onHistory()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
 }
@@ -79,15 +84,26 @@ void WebBrowser::onHome() {
 
 void WebBrowser::onMarkers() {
     MarkersWindow wnd;
-    wnd.setMarkers(markerList_);
+    wnd.setLinks(markerList_);
     wnd.setCurrentURL(address_->text());
 
-    connect(&wnd, SIGNAL(markerLaunched(QString)), this, SLOT(onLoadURL(QString)));
+    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
     connect(&wnd, SIGNAL(markersSaved(QList<QString>)), this, SLOT(setMarkers(QList<QString>)));
 
     wnd.setModal(true);
     wnd.setVisible(true);
     wnd.exec();
+}
+
+void WebBrowser::onHistory() {
+  HistoryWindow wnd;
+  wnd.setLinks(historyList_);
+
+  connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
+
+  wnd.setModal(true);
+  wnd.setVisible(true);
+  wnd.exec();
 }
 
 void WebBrowser::onLoadURL(QString url) {
@@ -102,6 +118,8 @@ void WebBrowser::onUrlChange(QUrl url) {
 void WebBrowser::onLoadFinished(bool ok) {
     if(!ok)
         web_->load("https://duckduckgo.com/?q=" + address_->text());
+    else
+      historyList_.append(address_->text());
 }
 
 void WebBrowser::setMarkers(QList<QString> markers) {
@@ -130,6 +148,33 @@ void WebBrowser::saveMarkers() {
     for (int i = 0; i < markerList_.size(); ++i) {
         settings.setArrayIndex(i);
         settings.setValue("marker", markerList_.at(i));
+    }
+    settings.endArray();
+    settings.endGroup();
+}
+
+void WebBrowser::loadHistory() {
+    historyList_.clear();
+    QSettings settings("history.ini", QSettings::IniFormat);
+
+    settings.beginGroup("HistoryData");
+    int size = settings.beginReadArray("history");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        historyList_.append(settings.value("link").toString());
+    }
+    settings.endArray();
+    settings.endGroup();
+}
+
+void WebBrowser::saveHistory() {
+    QSettings settings("history.ini", QSettings::IniFormat);
+
+    settings.beginGroup("HistoryData");
+    settings.beginWriteArray("history");
+    for (int i = 0; i < historyList_.size(); ++i) {
+        settings.setArrayIndex(i);
+        settings.setValue("link", historyList_.at(i));
     }
     settings.endArray();
     settings.endGroup();

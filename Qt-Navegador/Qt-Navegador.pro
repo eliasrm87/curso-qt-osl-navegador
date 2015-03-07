@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     webbrowser.cpp \
-    markerswindow.cpp
+    markerswindow.cpp \
+    historywindow.cpp \
+    urllistdialog.cpp
 
 HEADERS  += mainwindow.h \
     webbrowser.h \
-    markerswindow.h
+    markerswindow.h \
+    historywindow.h \
+    urllistdialog.h
 
 RESOURCES += \
     resources.qrc
