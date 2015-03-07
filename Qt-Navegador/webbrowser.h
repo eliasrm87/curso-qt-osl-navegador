@@ -23,6 +23,9 @@ private:
     QAction* back_;
     QAction* forward_;
     QAction* home_;
+    QAction* markers_;
+    QAction* config_;
+    QAction* history_;
     QGridLayout* layout_;
     QString homepage_;
 

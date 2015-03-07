@@ -9,6 +9,9 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     back_ = new QAction(tr("Anterior"), this);
     forward_ = new QAction(tr("Siguiente"), this);
     home_ = new QAction(tr("Inicio"), this);
+    markers_ = new QAction(tr("Marcadores"), this);
+    config_ = new QAction(tr("Configuración"), this);
+    history_ = new QAction(tr("Historial"), this);
     layout_ = new QGridLayout(this);
 
     QWidgetAction* lineAction = new QWidgetAction(this);
@@ -18,12 +21,18 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
+    markers_->setIcon(QIcon(QPixmap(":/icons/resources/markers.png")));
+    config_->setIcon(QIcon(QPixmap(":/icons/resources/config.png")));
+    history_->setIcon(QIcon(QPixmap(":/icons/resources/history.png")));
 
     toolbar_->addAction(back_);
     toolbar_->addAction(forward_);
     toolbar_->addAction(home_);
     toolbar_->addAction(refresh_);
     toolbar_->addAction(lineAction);
+    toolbar_->addAction(markers_);
+    toolbar_->addAction(config_);
+    toolbar_->addAction(history_);
 
     layout_->addWidget(toolbar_, 0, 0);
     layout_->addWidget(web_,     1, 0);
