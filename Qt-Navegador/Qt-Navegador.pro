@@ -14,11 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    webbrowser.cpp
+    webbrowser.cpp \
+    home_dialog.cpp
 
 HEADERS  += mainwindow.h \
-    webbrowser.h
+    webbrowser.h \
+    home_dialog.hpp
 
 RESOURCES += \
     resources.qrc
 
+
+
+CONFIG += c++11
