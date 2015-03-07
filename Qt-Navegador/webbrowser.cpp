@@ -1,5 +1,8 @@
 #include "webbrowser.h"
+#include "markerswindow.h"
+
 #include <QWidgetAction>
+#include <QSettings>
 
 WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     web_ = new QWebView(this);
@@ -41,7 +44,13 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     address_->setText(homepage_);
     web_->load(homepage_);
     setLayout(layout_);
+
     setupConnections();
+    loadMarkers();
+}
+
+void WebBrowser::closeEvent(QCloseEvent*) {
+    saveMarkers();
 }
 
 void WebBrowser::setupConnections() {
@@ -50,8 +59,36 @@ void WebBrowser::setupConnections() {
     connect(forward_, SIGNAL(triggered()),        web_, SLOT(forward()));
     connect(back_,    SIGNAL(triggered()),        web_, SLOT(back()));
     connect(home_,    SIGNAL(triggered()),        this, SLOT(onHome()));
+    connect(markers_, SIGNAL(triggered()),        this, SLOT(onMarkers()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
+}
+
+void WebBrowser::loadMarkers() {
+    markerList_.clear();
+    QSettings settings("markers.ini", QSettings::IniFormat);
+
+    settings.beginGroup("MarkersData");
+    int size = settings.beginReadArray("markers");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        markerList_.append(settings.value("marker").toString());
+    }
+    settings.endArray();
+    settings.endGroup();
+}
+
+void WebBrowser::saveMarkers() {
+    QSettings settings("markers.ini", QSettings::IniFormat);
+
+    settings.beginGroup("MarkersData");
+    settings.beginWriteArray("markers");
+    for (int i = 0; i < markerList_.size(); ++i) {
+        settings.setArrayIndex(i);
+        settings.setValue("marker", markerList_.at(i));
+    }
+    settings.endArray();
+    settings.endGroup();
 }
 
 void WebBrowser::onLoad() {
@@ -67,6 +104,24 @@ void WebBrowser::onHome() {
     web_->load(homepage_);
 }
 
+void WebBrowser::onMarkers() {
+    MarkersWindow wnd;
+    wnd.setMarkers(markerList_);
+    wnd.setCurrentURL(address_->text());
+
+    connect(&wnd, SIGNAL(markerLaunched(QString)), this, SLOT(onLoadURL(QString)));
+    connect(&wnd, SIGNAL(markersSaved(QList<QString>)), this, SLOT(setMarkers(QList<QString>)));
+
+    wnd.setModal(true);
+    wnd.setVisible(true);
+    wnd.exec();
+}
+
+void WebBrowser::onLoadURL(QString url) {
+    address_->setText(url);
+    onLoad();
+}
+
 void WebBrowser::onUrlChange(QUrl url) {
     address_->setText(url.toString());
 }
@@ -74,5 +129,9 @@ void WebBrowser::onUrlChange(QUrl url) {
 void WebBrowser::onLoadFinished(bool ok) {
     if(!ok)
         web_->load("https://duckduckgo.com/?q=" + address_->text());
+}
+
+void WebBrowser::setMarkers(QList<QString> markers) {
+    markerList_ = markers;
 }
 
