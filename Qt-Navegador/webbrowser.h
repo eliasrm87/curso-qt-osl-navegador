@@ -4,7 +4,8 @@
 #include <QGridLayout>
 #include <QWebView>
 #include <QLineEdit>
-#include <QToolButton>
+#include <QToolBar>
+#include <QAction>
 #include <QWidget>
 
 class WebBrowser : public QWidget
@@ -14,13 +15,15 @@ public:
     explicit WebBrowser(QWidget *parent = 0);
 
 private:
-    QWebView *web_;
-    QLineEdit *address_;
-    QToolButton *refresh_;
-    QToolButton *back_;
-    QToolButton *forward_;
-    QToolButton *home_;
-    QGridLayout *layout_;
+    QWebView* web_;
+
+    QToolBar* toolbar_;
+    QLineEdit* address_;
+    QAction* refresh_;
+    QAction* back_;
+    QAction* forward_;
+    QAction* home_;
+    QGridLayout* layout_;
     QString homepage_;
 
 private:

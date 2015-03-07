@@ -1,25 +1,32 @@
 #include "webbrowser.h"
+#include <QWidgetAction>
 
 WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     web_ = new QWebView(this);
+    toolbar_ = new QToolBar(this);
     address_ = new QLineEdit(this);
-    refresh_ = new QToolButton(this);
-    back_ = new QToolButton(this);
-    forward_ = new QToolButton(this);
-    home_ = new QToolButton(this);
+    refresh_ = new QAction(tr("Actualizar"), this);
+    back_ = new QAction(tr("Anterior"), this);
+    forward_ = new QAction(tr("Siguiente"), this);
+    home_ = new QAction(tr("Inicio"), this);
     layout_ = new QGridLayout(this);
+
+    QWidgetAction* lineAction = new QWidgetAction(this);
+    lineAction->setDefaultWidget(address_);
 
     refresh_->setIcon(QIcon(QPixmap(":/icons/resources/refresh.png")));
     back_->setIcon(QIcon(QPixmap(":/icons/resources/go-previous.png")));
     forward_->setIcon(QIcon(QPixmap(":/icons/resources/go-next.png")));
     home_->setIcon(QIcon(QPixmap(":/icons/resources/go-home.png")));
 
-    layout_->addWidget(back_,    0, 0, 1, 1);
-    layout_->addWidget(forward_, 0, 1, 1, 1);
-    layout_->addWidget(home_,    0, 2, 1, 1);
-    layout_->addWidget(refresh_, 0, 3, 1, 1);
-    layout_->addWidget(address_, 0, 4, 1, 1);
-    layout_->addWidget(web_,     1, 0, 1, 5);
+    toolbar_->addAction(back_);
+    toolbar_->addAction(forward_);
+    toolbar_->addAction(home_);
+    toolbar_->addAction(refresh_);
+    toolbar_->addAction(lineAction);
+
+    layout_->addWidget(toolbar_, 0, 0);
+    layout_->addWidget(web_,     1, 0);
 
     homepage_="http://duckduckgo.com";
     address_->setText(homepage_);
@@ -30,10 +37,10 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
 
 void WebBrowser::setupConnections() {
     connect(address_, SIGNAL(returnPressed()),    this, SLOT(onLoad()));
-    connect(refresh_, SIGNAL(pressed()),          web_, SLOT(reload()));
-    connect(forward_, SIGNAL(pressed()),          web_, SLOT(forward()));
-    connect(back_,    SIGNAL(pressed()),          web_, SLOT(back()));
-    connect(home_,    SIGNAL(pressed()),          this, SLOT(onHome()));
+    connect(refresh_, SIGNAL(triggered()),        web_, SLOT(reload()));
+    connect(forward_, SIGNAL(triggered()),        web_, SLOT(forward()));
+    connect(back_,    SIGNAL(triggered()),        web_, SLOT(back()));
+    connect(home_,    SIGNAL(triggered()),        this, SLOT(onHome()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
 }
@@ -42,7 +49,7 @@ void WebBrowser::onLoad() {
     if(!address_->text().startsWith("http://") &&
        !address_->text().startsWith("https://") &&
        !address_->text().isEmpty())
-        web_->load("http://"+address_->text());
+        web_->load("http://" + address_->text());
     else if (!address_->text().isEmpty())
       web_->load(address_->text());
 }
@@ -57,6 +64,6 @@ void WebBrowser::onUrlChange(QUrl url) {
 
 void WebBrowser::onLoadFinished(bool ok) {
     if(!ok)
-        web_->load("https://duckduckgo.com/?q="+address_->text());
+        web_->load("https://duckduckgo.com/?q=" + address_->text());
 }
 
