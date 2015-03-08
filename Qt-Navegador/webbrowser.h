@@ -15,6 +15,8 @@
 #include <QCompleter>
 #include <QStringList>
 #include <QStringListModel>
+#include <QWebSettings>
+
 class WebBrowser : public QWidget{
 
     Q_OBJECT
@@ -22,10 +24,10 @@ class WebBrowser : public QWidget{
 public:
 
     explicit WebBrowser(QWidget *parent = 0);
-
+    ~WebBrowser();
 private:
 
-    QWebView        *web_;
+
     QLineEdit       *address_;
     QToolButton     *refresh_;
     QToolButton     *back_;
@@ -35,11 +37,16 @@ private:
     QGridLayout     *layout_;
     QString          homepage_;
 
-    QCompleter*           web_Completer;
+    QCompleter*     web_Completer;
     QStringList     completer_list;
+
+
+
 
 public:
 
+   bool            delete_historial;
+   QWebView        *web_;
    home_dialog       dialogo;
 
 private:
@@ -47,6 +54,7 @@ private:
     void setupConnections();
     void startCompleter();
     void onReloadCompleter();
+    void Do_Download();
 
 signals:
 
@@ -60,7 +68,8 @@ public slots:
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
     void onChangeHome();
-
+    void onCookies();
+    void onHistorial();
 };
 
 #endif // WEBBROWSER_H

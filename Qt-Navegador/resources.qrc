@@ -9,5 +9,8 @@
         <file>resources/new_tab.png</file>
         <file>resources/folder.png</file>
         <file>resources/main_icon.png</file>
+        <file>resources/erase.png</file>
+        <file>resources/params.png</file>
+        <file>resources/tools.png</file>
     </qresource>
 </RCC>

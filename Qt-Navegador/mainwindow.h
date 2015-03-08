@@ -26,10 +26,8 @@ private:
     QMenuBar*       mn_bar;
     QMenu*          mnuRecientes_;
     QAction*        actRemoveHistorial_;
-    QAction*        actCargarMarcador_;
 
     QMenu*          mnuMarcadores_;
-    QAction*        actShowBkMark_;
     QMenu*          mnuShowBkMark_;
     QAction*        actRemoveBkMark_;
 
@@ -43,7 +41,6 @@ public slots:
     void onLoad();
     void onRemove(bool);
     void onAdd(bool,QString);
-
 
 };
 

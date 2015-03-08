@@ -51,6 +51,11 @@ WebBrowser::WebBrowser(QWidget *parent) :
      else
         homepage_ = "http://www.google.es";
 
+    //Bloqueamos las cookies de terceros por defecto
+    web_->settings()->setThirdPartyCookiePolicy(QWebSettings::AlwaysBlockThirdPartyCookies);
+    //No borramos el historial al salir por defecto
+    delete_historial = false;
+
     address_->setText(homepage_);
     web_->load(homepage_);
     setLayout(layout_);
@@ -58,6 +63,20 @@ WebBrowser::WebBrowser(QWidget *parent) :
     startCompleter();
 }
 
+WebBrowser :: ~WebBrowser() {
+
+    address_->deleteLater();
+    refresh_->deleteLater();
+    back_->deleteLater();
+    forward_->deleteLater();
+    home_->deleteLater();
+    bookmarks_->deleteLater();
+    layout_->deleteLater();
+    web_Completer->deleteLater();
+    web_->deleteLater();
+
+
+}
 
 //Al comenzar la ejecucion inciamos el completador
 void WebBrowser :: startCompleter(){
@@ -93,17 +112,17 @@ void WebBrowser :: startCompleter(){
 //Hacemos las conexiones
 void WebBrowser::setupConnections()
 {
-    connect(address_,   SIGNAL(returnPressed()),   this,        SLOT(onLoad()));
-    connect(refresh_,   SIGNAL(pressed()),         web_,        SLOT(reload()));
-    connect(forward_,   SIGNAL(pressed()),         web_,        SLOT(forward()));
-    connect(back_,      SIGNAL(pressed()),            web_,     SLOT(back()));
-    connect(home_,      SIGNAL(pressed()),            this,     SLOT(onHome()));
-    connect(web_,       SIGNAL(urlChanged(QUrl)),      this,    SLOT(onUrlChange(QUrl)));
-    connect(web_,       SIGNAL(loadFinished(bool)),    this,    SLOT(onLoadFinished(bool)));
+    connect(address_,   SIGNAL(returnPressed()),   this,                  SLOT(onLoad()));
+    connect(refresh_,   SIGNAL(pressed()),         web_,                  SLOT(reload()));
+    connect(forward_,   SIGNAL(pressed()),         web_,                  SLOT(forward()));
+    connect(back_,      SIGNAL(pressed()),            web_,               SLOT(back()));
+    connect(home_,      SIGNAL(pressed()),            this,               SLOT(onHome()));
+    connect(web_,       SIGNAL(urlChanged(QUrl)),      this,              SLOT(onUrlChange(QUrl)));
+    connect(web_,       SIGNAL(loadFinished(bool)),    this,              SLOT(onLoadFinished(bool)));
     connect(bookmarks_, &QToolButton::pressed, [&](){           emit marcadores(true,address_->text());   });
-    connect(dialogo.lnEdit_, SIGNAL(returnPressed()),   this,   SLOT(onChangeHome()));
-
-
+    connect(dialogo.lnEdit_, SIGNAL(returnPressed()),   this,             SLOT(onChangeHome()));
+    connect(dialogo.CheckCookies_, SIGNAL(stateChanged(int)),   this,     SLOT(onCookies()));
+    connect(dialogo.CheckHistorial_, SIGNAL(stateChanged(int)), this,     SLOT(onHistorial()));
 }
 
 //Cada vez que cargamos una pagina se actualiza el completador
@@ -139,7 +158,7 @@ void WebBrowser::onLoad()
 void WebBrowser::onHome()
 {
     address_->setText(homepage_);
-    web_->load(homepage_);
+    onLoad();
 }
 
 void WebBrowser::onUrlChange(QUrl url)
@@ -170,6 +189,29 @@ void WebBrowser :: onChangeHome(){
         }
     config.close();
     dialogo.close();
+}
+
+
+void WebBrowser :: onCookies() {
+
+
+    if (dialogo.CheckCookies_->checkState() == Qt::Checked)
+        web_->settings()->setThirdPartyCookiePolicy(QWebSettings::AlwaysBlockThirdPartyCookies);
+
+    else
+        web_->settings()->setThirdPartyCookiePolicy(QWebSettings::AlwaysAllowThirdPartyCookies);
+
+}
+
+void WebBrowser::onHistorial(){
+
+
+if (dialogo.CheckHistorial_->checkState() == Qt::Checked)
+       delete_historial = true;
+
+else
+    delete_historial = false;
+
 }
 
 

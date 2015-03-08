@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QLabel>
+#include <QCheckBox>
 
 class home_dialog : public QDialog
 {
@@ -17,6 +18,10 @@ public:
     QGridLayout*    layout_;
     QLineEdit*      lnEdit_;
     QLabel*         label_;
+    QCheckBox*      CheckCookies_;
+    QCheckBox*      CheckHistorial_;
+
+
 
 signals:
 

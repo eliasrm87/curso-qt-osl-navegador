@@ -12,22 +12,26 @@ MainWindow::MainWindow(QWidget *parent)
 
     mn_menu = new QMenu(tr("&Menu "),this);
     mn_config = new QMenu(tr("&Configuración"),this);
-    actChangeHome_ = new QAction(tr("&Establecer Home"),this);
+    mn_config->setIcon(QIcon(QPixmap(":/icons/resources/tools.png")));
+    actChangeHome_ = new QAction(tr("&Parámetros"),this);
+    actChangeHome_->setIcon(QIcon(QPixmap(":/icons/resources/params.png")));
     mn_config->addAction(actChangeHome_);
     mn_menu->addMenu(mn_config);
 
     mnuRecientes_ = new QMenu(tr("&Historial"),this);
     mnuMarcadores_ = new QMenu(tr("&Marcadores"),this);
     actRemoveHistorial_ = new QAction(tr("&Eliminar Historial"),this);
+    actRemoveHistorial_->setIcon(QIcon(QPixmap(":/icons/resources/erase.png")));
     mnuShowBkMark_ = new QMenu(tr("&Marcadores"),this);
-    actShowBkMark_ = new QAction(tr("&Recargar Marcadores Marcadores"),this);
+    mnuShowBkMark_->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
     actRemoveBkMark_ = new QAction(tr("&Eliminar Marcadores"),this);
-    actCargarMarcador_ = new QAction(this);
+    actRemoveBkMark_->setIcon(QIcon(QPixmap(":/icons/resources/erase.png")));
+
+
 
     //Añadimos los menus
     mn_menu->addAction(actRemoveHistorial_);
     mnuMarcadores_->addMenu(mnuShowBkMark_);
-    mnuMarcadores_->addAction(actShowBkMark_);
     mnuMarcadores_->addAction(actRemoveBkMark_);
     mn_bar->addMenu(mn_menu);
     mn_bar->addMenu(mnuMarcadores_);
@@ -45,6 +49,22 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    //Eliminamos el historial y salimos
+    if(browser_->delete_historial)
+        onRemove(false);
+
+   browser_->deleteLater();
+   mn_menu->deleteLater();
+   mn_config->deleteLater();
+   actChangeHome_->deleteLater();
+   mn_bar->deleteLater();
+   mnuRecientes_->deleteLater();
+   actRemoveHistorial_->deleteLater();
+
+   mnuMarcadores_->deleteLater();
+   mnuShowBkMark_->deleteLater();
+   actRemoveBkMark_->deleteLater();
+
 
 }
 
@@ -53,7 +73,6 @@ void MainWindow::connections()
 
     connect(browser_,           SIGNAL(marcadores(bool,QString)), this,          SLOT(onAdd(bool,QString)));
     connect(browser_,           SIGNAL(historial(bool,QString)),  this,          SLOT(onAdd(bool,QString)));
-    connect(actShowBkMark_,     &QAction::triggered,                             [&](){   onSee(); });
     connect(actRemoveHistorial_,&QAction::triggered,                             [&](){   onRemove(false); });
     connect(actRemoveBkMark_,   &QAction::triggered,                             [&](){   onRemove(true); });
     connect(actChangeHome_,     &QAction::triggered,                             [&](){   browser_->dialogo.showNormal();    });
@@ -61,6 +80,8 @@ void MainWindow::connections()
     onSee();
 
 }
+
+
 
 void MainWindow :: onRemove(bool i){
 
@@ -103,6 +124,7 @@ void MainWindow :: onSee(){
         while (!in.atEnd()) {
             QString archivo = in.readLine();
             QAction *actAbrir= new QAction(archivo, this);
+            actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
             mnuShowBkMark_->addAction(actAbrir);
 
             connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
@@ -121,6 +143,7 @@ void MainWindow :: onSee(){
             while (!in.atEnd()) {
                 QString archivo = in.readLine();
                 QAction *actAbrir = new QAction(archivo, this);
+                actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/main_icon.png")));
                 mnuRecientes_->addAction(actAbrir);
                 connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
 
@@ -136,7 +159,7 @@ void MainWindow :: onLoad(){
 
     QAction *accion = (QAction*)QObject::sender();
     browser_->onUrlChange(accion->text());
-
+    browser_->onLoad();
 
 }
 
@@ -151,6 +174,7 @@ if (option){
         QTextStream out(&marcadores);
         out << url << endl;
         QAction *actAbrir= new QAction(url, this);
+        actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
         mnuShowBkMark_->addAction(actAbrir);
         connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
         marcadores.close();
@@ -163,6 +187,7 @@ else{
         QTextStream out(&recientes);
         out << url << endl;
         QAction *actAbrir = new QAction(url, this);
+        actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/main_icon.png")));
         mnuRecientes_->addAction(actAbrir);
         connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
         recientes.close();
