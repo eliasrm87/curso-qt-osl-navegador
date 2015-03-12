@@ -6,6 +6,7 @@
 #include <QWidgetAction>
 #include <QSettings>
 #include <QWebHistory>
+#include <QMenu>
 
 WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     web_ = new QWebView(this);
@@ -61,6 +62,17 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
 WebBrowser::~WebBrowser() {
     saveMarkers();
     saveHistory();
+}
+
+void WebBrowser::contextMenuEvent(QContextMenuEvent* ev) {
+  QMenu* menu = new QMenu(this);
+  menu->addAction(web_->pageAction(QWebPage::Back));
+  menu->addAction(web_->pageAction(QWebPage::Forward));
+  menu->addAction(web_->pageAction(QWebPage::Reload));
+  menu->addAction(web_->pageAction(QWebPage::SelectAll));
+
+  menu->exec(ev->pos());
+  ev->accept();
 }
 
 void WebBrowser::setupConnections() {

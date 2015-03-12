@@ -7,6 +7,7 @@
 #include <QToolBar>
 #include <QAction>
 #include <QWidget>
+#include <QContextMenuEvent>
 
 class WebBrowser : public QWidget
 {
@@ -35,6 +36,9 @@ private:
     QAction* zoomOut_;
     QGridLayout* layout_;
     QString homepage_;
+
+protected:
+    void contextMenuEvent(QContextMenuEvent* ev);
 
 private:
     void setupConnections();
