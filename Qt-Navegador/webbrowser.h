@@ -16,6 +16,8 @@ public:
     ~WebBrowser();
 
 private:
+    static const qreal ZOOM_DELTA = 0.1;
+
     QList<QString> markerList_;
     QList<QString> historyList_;
     QWebView* web_;
@@ -29,6 +31,8 @@ private:
     QAction* markers_;
     QAction* config_;
     QAction* history_;
+    QAction* zoomIn_;
+    QAction* zoomOut_;
     QGridLayout* layout_;
     QString homepage_;
 
@@ -36,6 +40,15 @@ private:
     void setupConnections();
 
 public slots:
+    void setMarkers(QList<QString> markers);
+    void setHistory(QList<QString> history);
+    void setHomepage(QString url);
+    void loadMarkers();
+    void saveMarkers();
+    void loadHistory();
+    void saveHistory();
+
+private slots:
     void onLoad();
     void onHome();
 
@@ -43,19 +56,12 @@ public slots:
     void onConfiguration();
     void onHistory();
 
-    void setHomepage(QString url);
     void onLoadURL(QString url);
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
 
-private slots:
-    void setMarkers(QList<QString> markers);
-    void setHistory(QList<QString> history);
-    void loadMarkers();
-    void saveMarkers();
-    void loadHistory();
-    void saveHistory();
-
+    void onMoreZoom();
+    void onLessZoom();
 };
 
 #endif // WEBBROWSER_H

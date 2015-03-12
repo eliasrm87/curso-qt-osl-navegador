@@ -17,6 +17,8 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     home_ = new QAction(tr("Inicio"), this);
     markers_ = new QAction(tr("Marcadores"), this);
     config_ = new QAction(tr("Configuración"), this);
+    zoomIn_ = new QAction(tr("Aumentar zoom"), this);
+    zoomOut_ = new QAction(tr("Disminuir zoom"), this);
     history_ = new QAction(tr("Historial"), this);
     layout_ = new QGridLayout(this);
 
@@ -30,6 +32,9 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     markers_->setIcon(QIcon(QPixmap(":/icons/resources/markers.png")));
     config_->setIcon(QIcon(QPixmap(":/icons/resources/config.png")));
     history_->setIcon(QIcon(QPixmap(":/icons/resources/history.png")));
+
+    zoomIn_->setShortcut(Qt::CTRL + Qt::Key_Plus);
+    zoomOut_->setShortcut(Qt::CTRL + Qt::Key_Minus);
 
     toolbar_->addAction(back_);
     toolbar_->addAction(forward_);
@@ -69,74 +74,8 @@ void WebBrowser::setupConnections() {
     connect(history_, SIGNAL(triggered()),        this, SLOT(onHistory()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
-}
-
-void WebBrowser::onLoad() {
-    if(!address_->text().startsWith("http://") &&
-       !address_->text().startsWith("https://") &&
-       !address_->text().isEmpty())
-        web_->load("http://" + address_->text());
-    else if (!address_->text().isEmpty())
-      web_->load(address_->text());
-}
-
-void WebBrowser::onHome() {
-    web_->load(homepage_);
-}
-
-void WebBrowser::onMarkers() {
-    MarkersWindow wnd;
-    wnd.setLinks(markerList_);
-    wnd.setCurrentURL(address_->text());
-
-    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
-    connect(&wnd, SIGNAL(markersSaved(QList<QString>)), this, SLOT(setMarkers(QList<QString>)));
-
-    wnd.setModal(true);
-    wnd.setVisible(true);
-    wnd.exec();
-}
-
-void WebBrowser::onConfiguration() {
-  ConfigurationWindow wnd(homepage_);
-
-  connect(&wnd, SIGNAL(homepageSaved(QString)), this, SLOT(setHomepage(QString)));
-
-  wnd.setModal(true);
-  wnd.setVisible(true);
-  wnd.exec();
-}
-
-void WebBrowser::onHistory() {
-    HistoryWindow wnd;
-    wnd.setLinks(historyList_);
-
-    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
-    connect(&wnd, SIGNAL(historySaved(QList<QString>)), this, SLOT(setHistory(QList<QString>)));
-
-    wnd.setModal(true);
-    wnd.setVisible(true);
-    wnd.exec();
-}
-
-void WebBrowser::setHomepage(QString url) {
-    homepage_ = url;
-}
-
-void WebBrowser::onLoadURL(QString url) {
-    address_->setText(url);
-    onLoad();
-}
-
-void WebBrowser::onUrlChange(QUrl url) {
-    address_->setText(url.toString());
-}
-
-void WebBrowser::onLoadFinished(bool ok) {
-    if(!ok)
-        web_->load("https://duckduckgo.com/?q=" + address_->text());
-    else
-      historyList_.append(address_->text());
+    connect(zoomIn_,  SIGNAL(triggered()),        this, SLOT(onMoreZoom()));
+    connect(zoomOut_,  SIGNAL(triggered()),       this, SLOT(onLessZoom()));
 }
 
 void WebBrowser::setMarkers(QList<QString> markers) {
@@ -145,6 +84,10 @@ void WebBrowser::setMarkers(QList<QString> markers) {
 
 void WebBrowser::setHistory(QList<QString> history) {
     historyList_ = history;
+}
+
+void WebBrowser::setHomepage(QString url) {
+    homepage_ = url;
 }
 
 void WebBrowser::loadMarkers() {
@@ -199,4 +142,76 @@ void WebBrowser::saveHistory() {
     }
     settings.endArray();
     settings.endGroup();
+}
+
+void WebBrowser::onLoad() {
+    if(!address_->text().startsWith("http://") &&
+       !address_->text().startsWith("https://") &&
+       !address_->text().isEmpty())
+        web_->load("http://" + address_->text());
+    else if (!address_->text().isEmpty())
+      web_->load(address_->text());
+}
+
+void WebBrowser::onHome() {
+    web_->load(homepage_);
+}
+
+void WebBrowser::onMarkers() {
+    MarkersWindow wnd;
+    wnd.setLinks(markerList_);
+    wnd.setCurrentURL(address_->text());
+
+    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
+    connect(&wnd, SIGNAL(markersSaved(QList<QString>)), this, SLOT(setMarkers(QList<QString>)));
+
+    wnd.setModal(true);
+    wnd.setVisible(true);
+    wnd.exec();
+}
+
+void WebBrowser::onConfiguration() {
+    ConfigurationWindow wnd(homepage_);
+
+    connect(&wnd, SIGNAL(homepageSaved(QString)), this, SLOT(setHomepage(QString)));
+
+    wnd.setModal(true);
+    wnd.setVisible(true);
+    wnd.exec();
+}
+
+void WebBrowser::onHistory() {
+    HistoryWindow wnd;
+    wnd.setLinks(historyList_);
+
+    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
+    connect(&wnd, SIGNAL(historySaved(QList<QString>)), this, SLOT(setHistory(QList<QString>)));
+
+    wnd.setModal(true);
+    wnd.setVisible(true);
+    wnd.exec();
+}
+
+void WebBrowser::onLoadURL(QString url) {
+    address_->setText(url);
+    onLoad();
+}
+
+void WebBrowser::onUrlChange(QUrl url) {
+    address_->setText(url.toString());
+}
+
+void WebBrowser::onLoadFinished(bool ok) {
+    if(!ok)
+        web_->load("https://duckduckgo.com/?q=" + address_->text());
+    else
+      historyList_.append(address_->text());
+}
+
+void WebBrowser::onMoreZoom() {
+     web_->setZoomFactor(web_->zoomFactor() + ZOOM_DELTA);
+}
+
+void WebBrowser::onLessZoom() {
+    web_->setZoomFactor(web_->zoomFactor() - ZOOM_DELTA);
 }
