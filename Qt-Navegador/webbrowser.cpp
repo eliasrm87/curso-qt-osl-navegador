@@ -1,5 +1,6 @@
 #include "webbrowser.h"
 #include "markerswindow.h"
+#include "configurationwindow.h"
 #include "historywindow.h"
 
 #include <QWidgetAction>
@@ -64,6 +65,7 @@ void WebBrowser::setupConnections() {
     connect(back_,    SIGNAL(triggered()),        web_, SLOT(back()));
     connect(home_,    SIGNAL(triggered()),        this, SLOT(onHome()));
     connect(markers_, SIGNAL(triggered()),        this, SLOT(onMarkers()));
+    connect(config_,  SIGNAL(triggered()),        this, SLOT(onConfiguration()));
     connect(history_, SIGNAL(triggered()),        this, SLOT(onHistory()));
     connect(web_,     SIGNAL(urlChanged(QUrl)),   this, SLOT(onUrlChange(QUrl)));
     connect(web_,     SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
@@ -95,16 +97,30 @@ void WebBrowser::onMarkers() {
     wnd.exec();
 }
 
-void WebBrowser::onHistory() {
-  HistoryWindow wnd;
-  wnd.setLinks(historyList_);
+void WebBrowser::onConfiguration() {
+  ConfigurationWindow wnd(homepage_);
 
-  connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
-  connect(&wnd, SIGNAL(historySaved(QList<QString>)), this, SLOT(setHistory(QList<QString>)));
+  connect(&wnd, SIGNAL(homepageSaved(QString)), this, SLOT(setHomepage(QString)));
 
   wnd.setModal(true);
   wnd.setVisible(true);
   wnd.exec();
+}
+
+void WebBrowser::onHistory() {
+    HistoryWindow wnd;
+    wnd.setLinks(historyList_);
+
+    connect(&wnd, SIGNAL(linkLaunched(QString)), this, SLOT(onLoadURL(QString)));
+    connect(&wnd, SIGNAL(historySaved(QList<QString>)), this, SLOT(setHistory(QList<QString>)));
+
+    wnd.setModal(true);
+    wnd.setVisible(true);
+    wnd.exec();
+}
+
+void WebBrowser::setHomepage(QString url) {
+    homepage_ = url;
 }
 
 void WebBrowser::onLoadURL(QString url) {

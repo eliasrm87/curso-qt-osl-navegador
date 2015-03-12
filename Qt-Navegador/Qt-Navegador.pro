@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     webbrowser.cpp \
     markerswindow.cpp \
     historywindow.cpp \
-    urllistdialog.cpp
+    urllistdialog.cpp \
+    configurationwindow.cpp
 
 HEADERS  += mainwindow.h \
     webbrowser.h \
     markerswindow.h \
     historywindow.h \
-    urllistdialog.h
+    urllistdialog.h \
+    configurationwindow.h
 
 RESOURCES += \
     resources.qrc

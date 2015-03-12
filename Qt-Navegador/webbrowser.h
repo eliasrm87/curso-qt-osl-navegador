@@ -43,6 +43,7 @@ public slots:
     void onConfiguration();
     void onHistory();
 
+    void setHomepage(QString url);
     void onLoadURL(QString url);
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
