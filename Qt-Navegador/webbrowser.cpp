@@ -46,6 +46,9 @@ WebBrowser::WebBrowser(QWidget *parent): QWidget(parent) {
     toolbar_->addAction(config_);
     toolbar_->addAction(history_);
 
+    addAction(zoomIn_);
+    addAction(zoomOut_);
+
     layout_->addWidget(toolbar_, 0, 0);
     layout_->addWidget(web_,     1, 0);
 
