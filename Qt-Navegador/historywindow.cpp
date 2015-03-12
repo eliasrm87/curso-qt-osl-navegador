@@ -14,9 +14,14 @@ HistoryWindow::HistoryWindow(QWidget* parent): URLListDialog(parent) {
   QAction* actDelete = new QAction(tr("Eliminar"), this);
   actDelete->setShortcut(Qt::Key_Delete);
 
+  addAction(actDelete);
   connect(actDelete, SIGNAL(triggered()), this, SLOT(onDeleteSelected()));
 }
 
+HistoryWindow::~HistoryWindow() {
+  onSaveHistory();
+}
+
 void HistoryWindow::onSaveHistory() {
-  // TODO
+  emit(historySaved(links_));
 }

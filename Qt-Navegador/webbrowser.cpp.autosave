@@ -95,6 +95,11 @@ void WebBrowser::onMarkers() {
     wnd.exec();
 }
 
+
+void WebBrowser::onConfiguration() {
+  
+}
+
 void WebBrowser::onHistory() {
   HistoryWindow wnd;
   wnd.setLinks(historyList_);

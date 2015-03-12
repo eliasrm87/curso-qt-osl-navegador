@@ -38,7 +38,9 @@ private:
 public slots:
     void onLoad();
     void onHome();
+
     void onMarkers();
+    void onConfiguration();
     void onHistory();
 
     void onLoadURL(QString url);
@@ -47,6 +49,7 @@ public slots:
 
 private slots:
     void setMarkers(QList<QString> markers);
+    void setHistory(QList<QString> history);
     void loadMarkers();
     void saveMarkers();
     void loadHistory();

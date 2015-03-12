@@ -9,6 +9,7 @@ class HistoryWindow: public URLListDialog {
 
 public:
   explicit HistoryWindow(QWidget* parent = 0);
+  ~HistoryWindow();
 
 signals:
   void historySaved(QList<QString> markers);
