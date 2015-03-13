@@ -14,6 +14,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QInputDialog>
 
 class WebBrowser : public QWidget
 {
@@ -25,6 +26,7 @@ private:
     QMenuBar*       mainMenu_;
     QMenu*          mnuArchivo_;
     QMenu*          mnuMarcadores_;
+    QAction*        actArchivoHome_;
     QAction*        actArchivoSalir_;
     QAction*        actGoogle_;
     QListWidget *lista_marcadores_;
@@ -35,8 +37,17 @@ private:
     QToolButton *forward_;
     QToolButton *home_;
     QToolButton *addBookmark_;
+    QToolButton *zoom_;
+    QToolButton *zoomin_;
+    QToolButton *zoomout_;
+    QToolButton *add_;
     QGridLayout *layout_;
     QString homepage_;
+    QWebView *brow_;
+    QVBoxLayout *caja_;
+    QTabWidget *tab_;
+    QTabBar *tabi_;
+    QPushButton *cerrar_;
 
 private:
     void setupConnections();
@@ -50,6 +61,13 @@ public slots:
     void onUrlChange(QUrl url);
     void onLoadFinished(bool ok);
     void onBookmark();
+    void onAmpliar();
+    void onReducir();
+    void onOriginal();
+    void onDefinirHome();
+    void getHome();
+    void nueva_ventana();
+    void cerrar_nueva_ventana();
 };
 
 #endif // WEBBROWSER_H
