@@ -12,5 +12,6 @@
         <file>resources/erase.png</file>
         <file>resources/params.png</file>
         <file>resources/tools.png</file>
+        <file>resources/remove_tab.png</file>
     </qresource>
 </RCC>

@@ -21,8 +21,6 @@ public:
     QCheckBox*      CheckCookies_;
     QCheckBox*      CheckHistorial_;
 
-
-
 signals:
 
     void newHome(QString);

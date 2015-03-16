@@ -7,8 +7,8 @@
 #include <QMenuBar>
 #include <QGridLayout>
 #include <QAction>
-
-
+#include <QTabWidget>
+#include <QList>
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -31,17 +31,24 @@ private:
     QMenu*          mnuShowBkMark_;
     QAction*        actRemoveBkMark_;
 
-   void connections();
 
+
+    QTabWidget          *tabs;
+    QAction*            actNewTab_;
+    QAction*            actDeleteTab_;
+    QList<WebBrowser*>  PointerList_;
+    void connections();
 
 public slots:
 
     //Historial
     void onSee();
-    void onLoad();
     void onRemove(bool);
     void onAdd(bool,QString);
 
+    void newTab();
+    void deleteTab();
+    void onLoadTab();
 };
 
 #endif // MAINWINDOW_H

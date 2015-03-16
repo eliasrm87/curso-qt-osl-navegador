@@ -60,6 +60,7 @@ signals:
 
      void marcadores(bool,QString);
      void historial(bool,QString);
+     void name(QString);
 
 public slots:
 

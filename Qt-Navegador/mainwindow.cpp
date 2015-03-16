@@ -2,13 +2,19 @@
 #include <QFile>
 
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     //Inicializamos
     browser_ = new WebBrowser;
     mn_bar = new QMenuBar(this);
+    tabs = new QTabWidget(this);
+
+    actNewTab_ = new QAction(tr("&Nueva Pestaña"),this);
+    actNewTab_->setIcon(QIcon(QPixmap(":/icons/resources/new_tab.png")));
+
+    actDeleteTab_ = new QAction(tr("&Cerrar Pestaña"),this);
+    actDeleteTab_->setIcon(QIcon(QPixmap(":/icons/resources/remove_tab.png")));
 
     mn_menu = new QMenu(tr("&Menu "),this);
     mn_config = new QMenu(tr("&Configuración"),this);
@@ -36,12 +42,16 @@ MainWindow::MainWindow(QWidget *parent)
     mn_bar->addMenu(mn_menu);
     mn_bar->addMenu(mnuMarcadores_);
     mn_bar->addMenu(mnuRecientes_);
+    mn_bar->addAction(actNewTab_);
+    mn_bar->addAction(actDeleteTab_);
 
 
-
-    this->setCentralWidget(browser_);
     this->setMenuBar(mn_bar);
-
+    this->setCentralWidget(tabs);
+    //EMPEZAMOS CON UNA SOLA PESTAÑA
+    browser_ = new WebBrowser;
+    PointerList_.insert(tabs->currentIndex(), browser_);
+    tabs->addTab(browser_, "Nueva Pestaña");
 
     connections();
 
@@ -64,7 +74,8 @@ MainWindow::~MainWindow()
    mnuMarcadores_->deleteLater();
    mnuShowBkMark_->deleteLater();
    actRemoveBkMark_->deleteLater();
-
+   tabs->clear();
+   tabs->deleteLater();
 
 }
 
@@ -76,6 +87,9 @@ void MainWindow::connections()
     connect(actRemoveHistorial_,&QAction::triggered,                             [&](){   onRemove(false); });
     connect(actRemoveBkMark_,   &QAction::triggered,                             [&](){   onRemove(true); });
     connect(actChangeHome_,     &QAction::triggered,                             [&](){   browser_->dialogo.showNormal();    });
+    connect(actNewTab_,         SIGNAL(triggered()),             this,           SLOT(newTab()));
+    connect(actDeleteTab_,      SIGNAL(triggered()),              this,          SLOT(deleteTab()));
+    connect(browser_,           SIGNAL(name(QString)),              this,        SLOT(onLoadTab(QString)));
     //Cargamos los marcadores y el historial
     onSee();
 
@@ -127,7 +141,7 @@ void MainWindow :: onSee(){
             actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
             mnuShowBkMark_->addAction(actAbrir);
 
-            connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
+            connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoadTab()));
              marcadores.close();
         }
 
@@ -145,7 +159,7 @@ void MainWindow :: onSee(){
                 QAction *actAbrir = new QAction(archivo, this);
                 actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/main_icon.png")));
                 mnuRecientes_->addAction(actAbrir);
-                connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
+                connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoadTab()));
 
                 recientes.close();
 
@@ -155,44 +169,69 @@ void MainWindow :: onSee(){
 }
 
 
-void MainWindow :: onLoad(){
-
-    QAction *accion = (QAction*)QObject::sender();
-    browser_->onUrlChange(accion->text());
-    browser_->onLoad();
-
-}
 
 void MainWindow :: onAdd(bool option,QString url){
 
-    QFile  marcadores("./marcadores.txt");
-    QFile  recientes("./historial.txt");
 
 if (option){
-
+     QFile  marcadores("./marcadores.txt");
    if(marcadores.open(QIODevice::Append)){
         QTextStream out(&marcadores);
         out << url << endl;
         QAction *actAbrir= new QAction(url, this);
         actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/bookmarks.png")));
         mnuShowBkMark_->addAction(actAbrir);
-        connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
+        connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoadTab()));
         marcadores.close();
     }
 }
 
 else{
-
+    QFile  recientes("./historial.txt");
     if(recientes.open(QIODevice::Append)){
         QTextStream out(&recientes);
         out << url << endl;
         QAction *actAbrir = new QAction(url, this);
         actAbrir->setIcon(QIcon(QPixmap(":/icons/resources/main_icon.png")));
         mnuRecientes_->addAction(actAbrir);
-        connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoad()));
+        connect(actAbrir, SIGNAL(triggered()), this, SLOT(onLoadTab()));
         recientes.close();
     }
 }
+
+
+}
+
+void MainWindow::newTab(){
+
+    if (tabs->count() < 10){ //Solo dejamos 10 pestañas
+        WebBrowser *buscador = new WebBrowser;
+        tabs->addTab(buscador, "Nueva Pestaña");
+        tabs->setTabIcon(tabs->currentIndex(),QIcon(QPixmap(":/icons/resources/main_icon.png")));
+    }
+}
+void MainWindow::deleteTab()
+{
+      if(tabs->count() > 0){
+         int aux = tabs->currentIndex();
+          tabs->setCurrentIndex(0);
+        PointerList_.at(aux)->deleteLater();
+        tabs->removeTab(aux);
+      }
+
+  if(tabs->count() == 0)
+      this->close();
+}
+
+
+void MainWindow::onLoadTab()
+{
+
+
+   QAction *accion = (QAction*)QObject::sender();
+   PointerList_.at(tabs->currentIndex())->onUrlChange(accion->text());
+    PointerList_.at(tabs->currentIndex())->onLoad();
+    tabs->setTabText(tabs->currentIndex(),accion->text());
 
 
 }

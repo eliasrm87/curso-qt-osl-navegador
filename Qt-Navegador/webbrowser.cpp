@@ -152,6 +152,9 @@ void WebBrowser::onLoad()
            emit historial(false,address_->text());
            onReloadCompleter();
     }
+
+    //Enviamos el nombre a la nueva pestaña al mainwindow
+    emit name(address_->text());
  }
 
 //Cargamos la pagina principal
