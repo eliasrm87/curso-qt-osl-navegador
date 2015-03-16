@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\webbrowser.o
+./release\home_dialog.o
+./release\tor_net.o
+./release\qrc_resources.o
+./release\moc_mainwindow.o
+./release\moc_webbrowser.o
+./release\moc_home_dialog.o
+./release\moc_tor_net.o
+);
