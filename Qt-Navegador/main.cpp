@@ -1,12 +1,10 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication::setOrganizationName("Igeko");
-    QCoreApplication::setOrganizationDomain("igeko.es");
-    QCoreApplication::setApplicationName("WebBrowser");
-
+int main(int argc, char *argv[]) {
+    QCoreApplication::setOrganizationName("Skatrak");
+    QCoreApplication::setOrganizationDomain("skatrak.com");
+    QCoreApplication::setApplicationName("Skatrak Browser");
 
     QApplication a(argc, argv);
     MainWindow w;
