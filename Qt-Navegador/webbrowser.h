@@ -6,11 +6,11 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QWidget>
+#include <QSettings>
+
 class WebBrowser : public QWidget
 {
-    Q_OBJECT
-public:
-    explicit WebBrowser(QWidget *parent = 0);
+    Q_OBJECT //directiva al prepocesador de QT, primero lo convierten a c++ y luego lo precomplian en QT.
 
 private:
     QWebView *web_;
@@ -21,16 +21,28 @@ private:
     QToolButton *home_;
     QGridLayout *layout_;
     QString homepage_;
+
 private:
     void setupConnections();
-signals:
+    void Icon();
+    void DrawIcon();
+
+public:
+    explicit WebBrowser(QWidget *parent = 0);
+    QString get_homepage();
+    void set_homepage(QString);
+    void load();
+    QWebView *getWeb();
 
 public slots:
     void onLoad();
     void onHome();
     void onUrlChange(QUrl url);
-
+    void AcercarZoom();
+    void AlejarZoom();
     void onLoadFinished(bool ok);
+    QString getAddress();
+    void setAddress(QString);
 };
 
 #endif // WEBBROWSER_H
