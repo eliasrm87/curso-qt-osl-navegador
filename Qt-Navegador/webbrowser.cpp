@@ -103,14 +103,13 @@ void WebBrowser::onHome()
 void WebBrowser::onUrlChange(QUrl url)
 {
     address_->setText(url.toString());
-    qDebug() << "por aquí"
     QFile file( history_file_ );
     if ( file.open(QIODevice::Append) ) {
         QTextStream stream( &file );
         stream << address_->text() << endl;
     }
     file.close();
-
+    refreshHistorial();
 }
 
 void WebBrowser::onLoadFinished(bool ok)
