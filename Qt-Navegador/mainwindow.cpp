@@ -104,10 +104,6 @@ void MainWindow::barraMenu(){
     mnuVerMarcadores_->addAction(actMarcadoresBorrar_);
     mnuVerMarcadores_->addSeparator();
 
-    loadMarcador(); //OJO
-
-
-
     /*Herramientas*/
     mnuHerramientas_ = new QMenu(tr("Herramientas"), this);
     mainMenu_->addMenu(mnuHerramientas_);
@@ -232,7 +228,7 @@ void MainWindow::loadRecord()
 void MainWindow::loadMarcador()
 {
     QString url;
-    qint16 i=1;
+    qint16 i=0;
     while(!marcador_->readLine(i).isEmpty()){
         qDebug()<<"To Marcador: "<<marcador_->readLine(i);
         url=marcador_->readLine(i);
