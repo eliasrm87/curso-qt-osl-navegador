@@ -4,25 +4,17 @@ Curso de QT - OSL
 Segundo proyecto - Navegador Web
 ----
 
-Para continuar con lo aprendido desarrollando el bloc de notas vamos a crear nuestro propio 
-navegador web. En esta ocasión aprenderemos como usar los layouts y profundizaremos en el uso del
-sistema de señales y slots.
-
-Como mínimo, implementaremos las siguientes funcionalidades:
-
-* Añadir los botones de "Adelante" , "Atrás", "Página por defecto" y "Recargar página".
-* Añadir una barra de direcciones que se actualize cada vez que cambiamos de página al hacer click sobre los enlaces de cada pagina.
-* Comprobar que la dirección introducida sea valida. En caso contrario, introducir la cadena en un motor de busqueda por defecto.
+![Mostrar_Ejemplo](/ejemplo.png)
 
 Modus operandi
 ----
 
 1. Crear un repositorio git local y sicronizarlo con la cuenta de [GitHub]
-* Inicializar el proyecto en QTCreator
-* Agregar los botones con iconos representativos para cada función.
-* Añadir la barra de direcciones
-* Añadir el QWebView
-* Crear slots y conectar señales
+* **Inicializar el proyecto en QTCreator**
+* **Agregar los botones con iconos representativos para cada función.**
+* **Añadir la barra de direcciones**
+* **Añadir el QWebView**
+* **Crear slots y conectar señales**
 * Descanso de 15 minutos
 * Realizar las tareas propuestas para la clase
 * Almorzar
@@ -33,7 +25,7 @@ Tareas propuestas para realizar en clase
 Tras terminar con la implementación guiada del editor propuesto, procederemos a realizar las siguientes tareas:
 
 * Añadir soporte para marcadores.
-* Implementar la funcionalidad para cambiar la página web por defecto.
+* **Implementar la funcionalidad para cambiar la página web por defecto.**
 * Añadir soporte para ver el historial y modificarlo.
 
 
@@ -45,8 +37,8 @@ Todo el trabajo realizado en clase y/o en casa, debe ser subido a [GitHub] y, pa
 Para subir nota, proponemos las siguientes tareas para casa:
 
 * Agregar soporte para pestañas
-* Añadir opciones en menú contextual
-* Implementar Zoom.
+* **Añadir opciones en menú contextual**
+* **Implementar Zoom.**
 
 *Nota: Se valorará el simple hecho de haberlo intentado, no tiene que ser todo perfecto, lo importante es que aprendas a "buscarte la vida" con la documentación de QT al tiempo que practicas el desarrollo con este framework.* 
 
