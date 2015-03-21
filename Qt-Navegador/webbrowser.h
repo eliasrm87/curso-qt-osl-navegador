@@ -26,6 +26,7 @@ private:
     QMenuBar*       mainMenu_;
     QMenu*          mnuArchivo_;
     QMenu*          mnuMarcadores_;
+    QMenu*          mnuHistorial_;
     QAction*        actArchivoHome_;
     QAction*        actArchivoSalir_;
     QAction*        actGoogle_;
@@ -68,6 +69,7 @@ public slots:
     void getHome();
     void nueva_ventana();
     void cerrar_nueva_ventana();
+    void contextMenuRequested(QAction *d);
 };
 
 #endif // WEBBROWSER_H

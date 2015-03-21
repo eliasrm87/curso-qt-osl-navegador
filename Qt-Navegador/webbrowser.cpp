@@ -16,15 +16,27 @@ WebBrowser::WebBrowser(QWidget *parent) :
     mnuArchivo_->addAction(actArchivoSalir_);
 
     mnuMarcadores_ = new QMenu(tr("&Marcadores"), this);
+    mainMenu_->addMenu(mnuMarcadores_);
+
+    mnuHistorial_ = new QMenu(tr("&Historial"), this);
+    mainMenu_->addMenu(mnuHistorial_);
+
+    mnuHistorial_->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(mnuHistorial_,SIGNAL(customContextMenuRequested(QAction*)),this,\
+            SLOT(contextMenuRequested(QAction*)));
 
     QFile Historial("historial.txt");
     Historial.open(QIODevice::ReadWrite | QIODevice::Text);
+    while(!Historial.atEnd()) {
+        QString tmp = Historial.readLine();
+        actGoogle_ = new QAction(tmp, this);
+        connect(actGoogle_,SIGNAL(triggered()),this,SLOT(onBookmark()));
+        mnuHistorial_->addAction(actGoogle_);
+    }
     Historial.close();
 
     QFile Archivo("marcadores.txt");
     Archivo.open(QIODevice::ReadWrite | QIODevice::Text);
-
-    mainMenu_->addMenu(mnuMarcadores_);
 
     while(!Archivo.atEnd()) {
         QString tmp = Archivo.readLine();
@@ -33,7 +45,6 @@ WebBrowser::WebBrowser(QWidget *parent) :
         mnuMarcadores_->addAction(actGoogle_);
     }
     Archivo.close();
-
 
     web_ = new QWebView(this);
     address_ = new QLineEdit(this);
@@ -67,14 +78,26 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(zoom_,1,7,1,1);
     layout_->addWidget(zoomin_,1,8,1,1);
     layout_->addWidget(zoomout_,1,9,1,1);
-    layout_->addWidget(web_,2,0,1,9);
 
     homepage_="http://www.google.com";
     getHome();
     address_->setText(homepage_);
     web_->load(homepage_);
+
+    //meto la ventanita en el tab
+    tab_ = new QTabWidget();
+    tab_->addTab(web_,homepage_);
+    tab_->setTabsClosable(true);
+    tabi_= tab_->tabBar();
+    layout_->addWidget(tab_,2,0,1,9);
+
     setLayout(layout_);
     setupConnections();
+}
+
+void WebBrowser::contextMenuRequested(QAction *d)
+{
+    mnuHistorial_->removeAction(d);
 }
 
 void WebBrowser::setupConnections()
@@ -129,7 +152,6 @@ void WebBrowser::onDefinirHome(){
     }
 }
 
-
 void WebBrowser::onQuit()
 {
     QApplication::quit();
@@ -172,6 +194,10 @@ void WebBrowser::onUrlChange(QUrl url)
     QTextStream stream( &Archivo );
     stream << url.toString().split(QRegExp("\n|\r\n|\r"))[0] << endl;
     Archivo.close();
+    actGoogle_ = new QAction(url.toString().split(QRegExp("\n|\r\n|\r"))[0], this);
+    connect(actGoogle_,SIGNAL(triggered()),this,SLOT(onBookmark()));
+    mnuHistorial_->addAction(actGoogle_);
+    tab_->setTabText(0, url.toString().split(QRegExp("\n|\r\n|\r"))[0]);
 }
 
 void WebBrowser::onLoadFinished(bool ok)
@@ -186,37 +212,16 @@ void WebBrowser::onBookmark()
     web_->load(((QAction*) QObject::sender())->text().split(QRegExp("\n|\r\n|\r"))[0]);
 }
 
-void WebBrowser::nueva_ventana() {
-
-    //meto webview
-    brow_ = new QWebView();
-    brow_->load(QUrl ("http://google.com"));
-    brow_->show();
-
-    //meto la ventanita en el layout
-    caja_ = new QVBoxLayout();
-    caja_->insertWidget(0,brow_,0,Qt::AlignBottom);
-
-    //meto la ventanita en el tab
-    tab_ = new QTabWidget();
-    tab_->setLayout(caja_);
+void WebBrowser::nueva_ventana() { 
     tab_->addTab(new QWidget,"Nueva Ventana");
     //tab_->resize(1,1);
-
-    tabi_= tab_->tabBar();
 //    cerrar_ = new QPushButton(this);
-
 //    cerrar_->setText("X");
 //    cerrar_->setStyleSheet("border:none");
 //    tabi_->setTabButton(tabi_->count() -1, QTabBar::RightSide,cerrar_);
-
-    layout_->addWidget(tab_,2,0,1,9);
-
-
 //    connect(cerrar_,SIGNAL(clicked()), this, SLOT(cerrar_nueva_ventana()));
 
 }
-
 
 void WebBrowser::cerrar_nueva_ventana(){
     tab_->close();
