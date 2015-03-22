@@ -19,6 +19,9 @@
 #include <QTabWidget>
 #include <QTabBar>
 #include <QPushButton>
+#include <QStandardItemModel>
+#include <QTreeView>
+#include <QMenu>
 
 class WebBrowser : public QWidget
 {
@@ -41,7 +44,12 @@ private:
     //Pestañas
     QToolButton *ventanaAdd_;
     QTabWidget *tab_;
-    QPushButton *cerrar_;
+    //
+    //Menu contextual
+    QMenu* contextMenu;
+    QAction* actCM1;
+    QAction* actCM2;
+    QAction* actCM3;
     //
     QGridLayout *layout_;
     QString homepage_;
@@ -69,6 +77,10 @@ public slots:
     void onNuevaVentana();
     void onCerrarVentana(int);
     void onTabCambia(int);
+    //
+
+    //Menu contextual
+    void contextMenuRequested(QPoint point);
     //
 
     void onLoadFinished(bool ok);

@@ -61,6 +61,20 @@ WebBrowser::WebBrowser(QWidget *parent) :
     layout_->addWidget(tab_,2,0,1,9);
     //
 
+    //Menu contextual
+    contextMenu = new QMenu;
+    setContextMenuPolicy(Qt::CustomContextMenu);
+
+    actCM1 = contextMenu->addAction("Ampliar zoom");
+    actCM2 = contextMenu->addAction("Reducir zoom");
+    actCM3 = contextMenu->addAction("Zoom por defecto");
+
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint)), this, SLOT(contextMenuRequested(QPoint)));
+    connect(actCM1,SIGNAL(triggered()),this,SLOT(onAmpliar()));
+    connect(actCM2,SIGNAL(triggered()),this,SLOT(onReducir()));
+    connect(actCM3,SIGNAL(triggered()),this,SLOT(onOriginal()));
+    //
+
     setLayout(layout_);
     setupConnections();
 }
@@ -195,6 +209,13 @@ void WebBrowser::onTabCambia(int index){
         address_->clear();
     }
 }
+//
+
+//Menu contextual
+void WebBrowser::contextMenuRequested(QPoint point)
+{
+    contextMenu->popup(mapToGlobal(point));
+};
 //
 
 
