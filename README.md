@@ -18,13 +18,13 @@ Modus operandi
 ----
 
 1. Crear un repositorio git local y sicronizarlo con la cuenta de [GitHub]
-* Inicializar el proyecto en QTCreator
-* Agregar los botones con iconos representativos para cada función.
-* Añadir la barra de direcciones
-* Añadir el QWebView
-* Crear slots y conectar señales
+* (Hecho) Inicializar el proyecto en QTCreator
+* (Hecho) Agregar los botones con iconos representativos para cada función.
+* (Hecho) Añadir la barra de direcciones
+* (Hecho) Añadir el QWebView
+* (Hecho) Crear slots y conectar señales
 * Descanso de 15 minutos
-* Realizar las tareas propuestas para la clase
+* (Hecho) Realizar las tareas propuestas para la clase
 * Almorzar
 
 Tareas propuestas para realizar en clase
@@ -32,9 +32,9 @@ Tareas propuestas para realizar en clase
 
 Tras terminar con la implementación guiada del editor propuesto, procederemos a realizar las siguientes tareas:
 
-* Añadir soporte para marcadores.
-* Implementar la funcionalidad para cambiar la página web por defecto.
-* Añadir soporte para ver el historial y modificarlo.
+* (Hecho) Añadir soporte para marcadores.
+* (Hecho) Implementar la funcionalidad para cambiar la página web por defecto.
+* (Hecho) Añadir soporte para ver el historial y modificarlo.
 
 
 Entrega
@@ -44,9 +44,9 @@ Todo el trabajo realizado en clase y/o en casa, debe ser subido a [GitHub] y, pa
 
 Para subir nota, proponemos las siguientes tareas para casa:
 
-* Agregar soporte para pestañas
-* Añadir opciones en menú contextual
-* Implementar Zoom.
+* (Hecho) Agregar soporte para pestañas
+*  Añadir opciones en menú contextual
+* (Hecho) Implementar Zoom.
 
 *Nota: Se valorará el simple hecho de haberlo intentado, no tiene que ser todo perfecto, lo importante es que aprendas a "buscarte la vida" con la documentación de QT al tiempo que practicas el desarrollo con este framework.* 
 
